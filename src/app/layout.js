@@ -2,7 +2,7 @@ import { Sarabun } from "next/font/google";
 import "./globals.css";
 import NavigationMenu from "@/components/layouts/navigationmanu";
 import NavigationTop from "@/components/layouts/navigationtop";
-import { ProjectProvider } from "./context/useDataproject";
+import { SubjectProvider } from "./context/useDatasubject";
 import { AuthProvider } from "./context/authentication";
 
 const sarabun = Sarabun({ 
@@ -20,11 +20,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={sarabun.className} >
       <AuthProvider>
-        <ProjectProvider>  
+        <SubjectProvider>  
+          <main className="w-full md:w-2/4 h-screen  mx-auto   items-center justify-between ">
+
+          {children}  
+          </main>
+          
             
-              {children}
-            
-        </ProjectProvider>
+        </SubjectProvider>
       </AuthProvider>
            
       </body>

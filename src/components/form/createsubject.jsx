@@ -7,14 +7,6 @@ import { useForm } from "react-hook-form"
 
 const FromCreateSubject = () => {
 
-    const Quantitygroup = [
-        {value: '1',label: "1"},
-        {value: '2',label: "2"},
-        {value: '3',label: "3"},
-        {value: '4',label: "4"},
-        {value: '5',label: "5"},
-
-    ]
     const {
         register,
         handleSubmit,
@@ -24,7 +16,7 @@ const FromCreateSubject = () => {
       } = useForm()
     
     
-    const onSubmit = (data) => {
+    const handleCreatesubject = (data) => {
         console.log(data)
       }
 
@@ -35,14 +27,14 @@ const FromCreateSubject = () => {
     }
 
     return (
-        <form className="flex flex-col border rounded-xl  px-8 pb-10 " onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col border rounded-xl  px-8 pb-10 " onSubmit={handleSubmit(handleCreatesubject)}>
             <div className="mb-4 mt-6">
                 <p className="text-xl font-extrabold text-center">สร้างวิชา</p>
             </div>
             <div className="flex flex-col mt-6 mb-10  ">
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3">วิชา</label>
-                <input placeholder="โปรเจกต์ 1"  className="shadow px-5 w-full h-12 rounded-xl sm:w-auto lg:w-auto " {...register("Subject",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.Subject? "true":"false"}></input>
-                {errors.Subject && <p  role="alert" className="text-red-500 ">{errors.Subject?.message}</p>}
+                <input placeholder="โปรเจกต์ 1"  className="shadow px-5 w-full h-12 rounded-xl sm:w-auto lg:w-auto " {...register("subject_name",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.subject_name? "true":"false"}></input>
+                {errors.subject_name && <p  role="alert" className="text-red-500 ">{errors.subject_name?.message}</p>}
                 
             </div>
             

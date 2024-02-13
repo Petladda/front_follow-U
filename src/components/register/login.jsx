@@ -22,12 +22,12 @@ const LoginUsers= () =>{
             </div>
             <div className="flex flex-col pb-6 ">
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3">ชื่อผู้ใช้</label>
-                <input placeholder="ชื่อผู้ใช้"  className="shadow px-5 w-80 h-12 rounded-xl sm:w-auto lg:w-auto "{...register("username",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.username? "true":"false"}></input>
+                <input placeholder="ชื่อผู้ใช้"  className="shadow px-5 w-full  h-12 rounded-xl sm:w-auto lg:w-auto "{...register("username",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.username? "true":"false"}></input>
                 {errors.username && <p  role="alert" className="text-red-500 ">{errors.username?.message}</p>}
 
 
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3 pt-4">รหัสผ่าน</label>
-                <input type="password" placeholder="รหัสผ่าน"  className="shadow px-5 w-80 h-12 rounded-xl sm:w-auto lg:w-auto"{...register("password",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.password? "true":"false"}></input>
+                <input type="password" placeholder="รหัสผ่าน"  className="shadow px-5 w-full  h-12 rounded-xl sm:w-auto lg:w-auto"{...register("password",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.password? "true":"false"}></input>
                 {errors.password && <p  role="alert" className="text-red-500 ">{errors.password?.message}</p>}
 
             </div>

@@ -6,10 +6,12 @@ import Select from "react-select"
 import React, { useState,useEffect } from 'react';
 import { useForm } from "react-hook-form"
 import Link from "next/link";
+import { useAuth } from "@/app/context/authentication";
 
 
 const RegisterUsers = () =>{
    
+    const {submitRegister} = useAuth()
     
       
     const Groupid = [
@@ -29,9 +31,7 @@ const RegisterUsers = () =>{
         formState: { errors },
       } = useForm()
     
-    const onSubmit = (data) => {
-        console.log(data)
-      }
+   
     
     const handleSelectGroups = (e) =>{
         setValue('Groupid',e.value)
@@ -40,42 +40,38 @@ const RegisterUsers = () =>{
    
     
     return (
-        <form className="flex flex-col border rounded-xl p-5 mt-4  "onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col border rounded-xl p-5 mt-4  "onSubmit={handleSubmit(submitRegister)}>
             <div className="mb-8">
                 <p className="text-xl font-extrabold text-center">ลงทะเบียน</p>
             </div>
             <div className="flex flex-col ">
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3">ชื่อผู้ใช้</label>
-                <input placeholder="ชื่อผู้ใช้"  className="shadow px-5 w-80 h-12 rounded-xl sm:w-auto lg:w-auto "{...register("username",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.username? "true":"false"}></input>
+                <input placeholder="ชื่อผู้ใช้"  className="shadow px-5 w-full h-12 rounded-xl sm:w-auto lg:w-auto "{...register("username",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.username? "true":"false"}></input>
                 {errors.username && <p  role="alert" className="text-red-500 ">{errors.username?.message}</p>}
 
 
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3 pt-4">รหัสผ่าน</label>
-                <input type="password" placeholder="รหัสผ่าน"  className="shadow px-5 w-80 h-12 rounded-xl sm:w-auto lg:w-auto"{...register("password",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.password? "true":"false"}></input>
+                <input type="password" placeholder="รหัสผ่าน"  className="shadow px-5 w-full  h-12 rounded-xl sm:w-auto lg:w-auto"{...register("password",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.password? "true":"false"}></input>
                 {errors.password && <p  role="alert" className="text-red-500 ">{errors.password?.message}</p>}
                 
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pt-4 pb-3">รหัสนิสิต</label>
-                <input placeholder="รหัสนิสิต"  className="shadow px-5 w-80 h-12 rounded-xl sm:w-auto lg:w-auto " {...register("Studentid",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.Studentid? "true":"false"}></input>
-                {errors.Studentid && <p  role="alert" className="text-red-500 ">{errors.Studentid?.message}</p>}
+                <input placeholder="รหัสนิสิต"  className="shadow px-5 w-full  h-12 rounded-xl sm:w-auto lg:w-auto " {...register("id_student",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.id_student? "true":"false"}></input>
+                {errors.id_student && <p  role="alert" className="text-red-500 ">{errors.id_student?.message}</p>}
 
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3 pt-4">ชื่อจริง</label>
-                <input placeholder="ชื่อจริง"  className="shadow px-5 w-80 h-12 rounded-xl sm:w-auto lg:w-auto "  {...register("FirstName",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.FirstName? "true":"false"}></input>
-                {errors.FirstName && <p  role="alert" className="text-red-500 ">{errors.FirstName?.message}</p>}
+                <input placeholder="ชื่อจริง"  className="shadow px-5 w-full  h-12 rounded-xl sm:w-auto lg:w-auto "  {...register("first_name",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.first_name? "true":"false"}></input>
+                {errors.first_name && <p  role="alert" className="text-red-500 ">{errors.first_name?.message}</p>}
 
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3 pt-4">นามสกุล</label>
-                <input placeholder="นามสกุล" className="px-5 shadow w-80 h-12 rounded-xl sm:w-auto lg:w-auto"{...register("LastName",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.LastName? "true":"false"}></input>
-                {errors.LastName && <p  role="alert" className="text-red-500 ">{errors.LastName?.message}</p>}
+                <input placeholder="นามสกุล" className="px-5 shadow w-full  h-12 rounded-xl sm:w-auto lg:w-auto"{...register("last_name",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.last_name? "true":"false"}></input>
+                {errors.last_name && <p  role="alert" className="text-red-500 ">{errors.last_name?.message}</p>}
 
                 
             </div>
             
-            <div className="border-b-2 mt-8 border-extar-light-grey "></div>
-            <div className="pt-4 pb-3">
-                <input type="checkbox" className="border w-4 h-4 accent-black  " {...register("Checkbox",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.Checkbox? "true":"false"}></input>
-                <label className="ml-2 after:content-['*'] after:ml-0.5 after:text-red-500">ฉันได้อ่านและยอมรับเงื่อนไขการเป็นสมาชิกและนโยบายความเป็นส่วนตัว</label>
-                {errors.Checkbox && <p  role="alert" className="text-red-500 ">{errors.Checkbox?.message}</p>}
-            </div>
-            <Button  color="primary" onClick={onSubmit} title="ลงทะเบียน"/>
+            <div className="border-b-2 mt-8 mb-10 border-extar-light-grey "></div>
+           
+            <Button  color="primary" title="ลงทะเบียน"/>
             <div className="font-medium text-center mt-4 ">
                 <p className="mb-2  text-mid-grey">การสร้างบัญชีหรือการเข้าใช้งาน หมายถึงคุณได้อ่านและยอมรับ</p>
                 <p>เงื่อนไขข้อกำหนด <span className="text-mid-grey">และ</span> นโยบายความเป็นส่วนตัว</p>
@@ -98,4 +94,10 @@ export default RegisterUsers;
                 onChange={handleSelectGroups}
                 ></Select>
                 {errors.Groupid && <p  role="alert" className="text-red-500 ">{errors.Groupid?.message}</p>}
-            </div>*/ 
+            </div>
+             <div className="pt-4 pb-3">
+                <input type="checkbox" className="border w-4 h-4 accent-black  " {...register("checkbox",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.checkbox? "true":"false"}></input>
+                <label className="ml-2 after:content-['*'] after:ml-0.5 after:text-red-500">ฉันได้อ่านและยอมรับเงื่อนไขการเป็นสมาชิกและนโยบายความเป็นส่วนตัว</label>
+                {errors.checkbox && <p  role="alert" className="text-red-500 ">{errors.checkbox?.message}</p>}
+            </div>
+            */ 

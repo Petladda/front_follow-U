@@ -1,8 +1,10 @@
-
+"use client"
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const NavigationMenu = () => {
-
+    
+  const router = useRouter()
     
     
     return (
@@ -12,8 +14,8 @@ const NavigationMenu = () => {
       >
         <div id="tabs" className="w-full flex justify-between">
           <a
-            href="myproject"
-            className="w-full text-white focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1"
+            onClick={()=>router.replace(`/subject`)}
+            className="w-full cursor-pointer text-white focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1"
           >
             <svg
               width="30"
@@ -32,8 +34,9 @@ const NavigationMenu = () => {
           </a>
    
           <a
-            href="projectoverall"
-            className="w-full text-white focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1"
+            onClick={()=>router.push(`/subject`)}
+            
+            className="w-full cursor-pointer text-white focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1"
           >
             <svg
               width="30"
@@ -51,7 +54,7 @@ const NavigationMenu = () => {
             <span className="tab tab-whishlist block text-xs">โปรเจกต์</span>
           </a>
           <a
-            href="inputdailyscrum"
+            href="dailyscrum"
             className="w-full text-white focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1"
           >
             <svg

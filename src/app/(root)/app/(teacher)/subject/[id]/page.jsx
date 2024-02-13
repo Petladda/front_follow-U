@@ -13,7 +13,8 @@ export default function({params}){
          
             <a href="create">
                 <div className="">
-                <button className=" w-36 h-12 text-mid-grey rounded-3xl border block  sticky inset-x-0 bottom-0 z-10  border-mid-grey drop-shadow-lg font-extrabold">+ สร้างโปรเจกต์</button>
+                    <a href="">
+                    <button className=" w-36 h-12 text-mid-grey rounded-3xl border block  sticky inset-x-0 bottom-0 z-10  border-mid-grey drop-shadow-lg font-extrabold">+ สร้างโปรเจกต์</button></a>
                 </div>
             </a>
         </main>

@@ -5,14 +5,9 @@ import { useAuth } from "@/app/context/authentication";
 import { useRouter } from "next/navigation";
 const NavigationTop = ()=>{
     const {currentUser,submitlogout} = useAuth()
-    const [isAuth, setisAuth ] = useState(false)
-  
-    useEffect(() =>{
-      setisAuth(currentUser != null)
-    },[currentUser]);
-
     const router = useRouter()
 
+    
     const logout = (e) => {
       submitlogout(e)
       router.replace("/login_users")
@@ -21,19 +16,19 @@ const NavigationTop = ()=>{
     return(
       <section id="top-navigation" className="block mb-6 h-12  bg-primary shadow">
       {
-        isAuth ? (
+        currentUser ? (
           
           
           <div id="tabs" className="w-full flex  ">
-          
-            <a href="#"
-              className="w-full text-xl my-1 text-white focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1">
-              <span className="tab tab-kategori block text-base ">โปรไฟล์</span>
+           
+            <a onClick={()=>router.push(`profile`)}
+              className="w-full text-xl my-1 text-white cursor-pointer focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1">
+              <span className="tab tab-kategori block text-base ">{currentUser.first_name}</span>
             </a>
             <a
               onClick={logout}
               className="w-full my-1 text-white focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1">  
-              <button type="submit" className="tab tab-kategori block text-base  ">ออกจากระบบ</button>
+              <button type="submit" className="tab tab-kategori block text-base ml-16 ">ออกจากระบบ</button>
             </a>
           </div>
         
@@ -41,8 +36,8 @@ const NavigationTop = ()=>{
           
             <div id="tabs" className="w-full flex  ">
             
-              <a href="Profile"
-                className="w-full text-xl my-1 text-white focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1">
+              <a onClick={()=>router.push(`profile`)}
+                className="w-full text-xl my-1 text-white cursor-pointer focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1">
                 <span className="tab tab-kategori block text-base ">โปรไฟล์</span>
               </a>
               <a
@@ -57,5 +52,7 @@ const NavigationTop = ()=>{
          </section>
     )   
 }
-//<Link href="/inputformdaily">test</Link>
+
 export default NavigationTop;
+
+/*onclick to profile page ? */

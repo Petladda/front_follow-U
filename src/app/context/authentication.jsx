@@ -2,12 +2,14 @@
 
 import { createContext,useContext,useState,useEffect } from "react"
 import axios from "axios";
+import Swal from 'sweetalert2'
 import { useRouter } from "next/navigation";
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
+const swal = require('sweetalert2')
 const AuthContext = createContext();
 
 const client = axios.create({
@@ -18,9 +20,30 @@ export const AuthProvider = ({ children }) => {
   //const [user, setUser] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [loadFinished, setLoadFinished] = useState(false);
-  //const [username, setUsername] = useState('');
-  //const [password, setPassword] = useState('');
+  
   const router = useRouter()
+
+  const submitRegister = (e) =>{
+    console.log(e);
+    e.preventDefault;
+    client.post("/api/register",e
+    ).then(function(res){
+      if (res.status === 201){
+        router.push("/login_users")
+        swal.fire({
+          title: "ลงทะเบียนเรียบร้อย เข้าสู่ระบบเลย!!! ",
+          icon: "success",
+          toast: true,
+          timer: 3000,
+          position: 'top-right',
+          timerProgressBar: true,
+          showConfirmButton: false,
+      })
+      }
+    })
+    
+    
+  }
 
   const submitlogin = (e) => {
     //console.log(e);
@@ -34,11 +57,24 @@ export const AuthProvider = ({ children }) => {
       client.defaults.headers.common['Authorization'] = "Token "+ localStorage.getItem("token")
 
       await loadUserData()
-      router.replace("/myproject")
+      router.replace("/subject")
+      swal.fire({
+        title: "เข้าสู่ระบบเลยเรียบร้อย !!! ",
+        icon: "success",
+        toast: true,
+        timer: 3000,
+        position: 'top-right',
+        timerProgressBar: true,
+        showConfirmButton: false,
+    })
      
     }).catch(function(error) {
-        console.error('Login failed:', error);
+      Swal.fire({
+        icon: "error",
+        text: "ข้อมูลไม่ถูกต้อง!",
+        
       });
+    });
   };
 
   const setUser = (user) => {
@@ -49,13 +85,14 @@ export const AuthProvider = ({ children }) => {
   const loadUserData = async () => {
     setLoadFinished(false)
     let token = localStorage.getItem("token",null)
-    console.log("authentication.jsx @ loadUserData : token", token)
+    //console.log("authentication.jsx @ loadUserData : token", token)
 
     let localStorageUser = localStorage.getItem("user",null)
     if(localStorageUser != null){
       let user = JSON.parse(localStorageUser)
       setUser(user)
       setLoadFinished(true)
+      
     }else {
       setUser(null)
       setLoadFinished(false)
@@ -65,7 +102,7 @@ export const AuthProvider = ({ children }) => {
     if(token == null){
       setUser(null)
       setLoadFinished(true)
-      router.replace("/login_users")
+     // router.replace("/login_users")
     }else {
       client.defaults.headers.common['Authorization'] = "Token "+ localStorage.getItem("token")
       let result = await client.get("/api/user")
@@ -87,7 +124,16 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token")
     localStorage.clear();
     client.defaults.headers.common["Authorization"] = null;
-    console.log('aert');
+    router.push("/login_users")
+    swal.fire({
+      title: "ออกจากระบบเสร็จสิ้น...",
+      icon: "success",
+      toast: true,
+      timer: 3000,
+      position: 'top-right',
+      timerProgressBar: true,
+      showConfirmButton: false,
+    })
   };
 
 
@@ -98,13 +144,10 @@ export const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ currentUser, submitlogin, submitlogout , loadFinished }}>
-      <div style={loadFinished ? {display:'none'}  : {}}>
-        Loading...
-      </div>
-      <div style={loadFinished ? {}  : {display:'none'}}>
+    <AuthContext.Provider value={{ currentUser, submitlogin, submitlogout ,submitRegister, loadFinished }}>
+      
       {children}
-      </div>
+     
       
     </AuthContext.Provider>
   );

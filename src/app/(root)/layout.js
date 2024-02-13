@@ -1,4 +1,4 @@
-import NavigationMenu from "@/components/layouts/navigationmanu"
+/*import NavigationMenu from "@/components/layouts/navigationmanu"
 import NavigationTop from "@/components/layouts/navigationtop"
 import { AuthProvider } from "../context/authentication"
 import { ProjectProvider } from "../context/useDataproject"
@@ -18,4 +18,4 @@ export default function RootPageLayout({ children}) {
       </AuthProvider>
     
     )
-}
+}*/

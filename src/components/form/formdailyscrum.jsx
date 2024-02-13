@@ -6,10 +6,10 @@ import axios from "axios";
 import { useAuth } from "@/app/context/authentication";
 
 const FormDailyScrum = () =>{
-    const url = 'http://127.0.0.1:8000/api/dailyscrum/'
+    const url = "http://127.0.0.1:8000"
 
     const {currentUser} = useAuth()
-    //console.log(currentUser);
+    
     const note = [
         {value: 'work',label: "วันนี้ทำงาน"},
         {value: 'sick',label: "ป่วย"},
@@ -19,7 +19,7 @@ const FormDailyScrum = () =>{
 
     async function getScrumDaily() {
         try {
-          const response = await axios.get(url);
+          const response = await axios.get();
           //console.log(response);
         } catch (error) {
           console.error(error);
@@ -40,7 +40,7 @@ const FormDailyScrum = () =>{
     const onSubmit = async(data) => {
         console.log(data)
         try {
-            const response = await axios.post(url);
+            const response = await axios.post();
             console.log(response);
           } catch (error) {
             console.error(error);

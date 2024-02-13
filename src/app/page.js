@@ -1,3 +1,4 @@
+
 import FormDailyScrum from "@/components/form/formdailyscrum";
 import ChooseStatus from "@/components/layouts/choosestatus";
 import NavigationMenu from "@/components/layouts/navigationmanu";
@@ -8,11 +9,15 @@ import Image from "next/image";
 export default function Home() {
   
   return (
-    <main className="w-full md:w-2/4 h-screen  mx-auto   items-center justify-between ">
+    <main>
             
+      <NavigationTop/>
+
+      <main className=" px-10 my-10 h-screen" >
         
-        <ChooseStatus/>
-       
+      </main>
+
+      <NavigationMenu/>
             
     </main>
   );

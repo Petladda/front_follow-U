@@ -12,7 +12,7 @@ const ModalDelete = ({ closedelete })=>{
                     <h1>ต้องการลบ</h1>
                     </div>
                     <div className="text-center my-2">
-                    <p>ลบบางอย่างที่อยากจะลบ</p>
+                    <p></p>
                     </div>
                     <div className="my-2 flex flex-row justify-around">
                     <button className="h-12 w-24 border border-danger rounded-md text-danger" onClick={() => closedelete(false)}>ยกเลิก</button>
