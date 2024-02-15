@@ -1,20 +1,18 @@
+"use client"
 import Button from "../shared/button"
 import Select from "react-select"
 import * as React from "react"
 import { useForm } from "react-hook-form"
-
+import { useRouter } from "next/navigation"
+import { useAuth } from "@/app/context/authentication"
+import { useState } from "react"
+import { useEffect } from "react"
+import Swal from 'sweetalert2'
 
 
 const JoinProject = () => {
-
-    const Quantitygroup = [
-        {value: '1',label: "1"},
-        {value: '2',label: "2"},
-        {value: '3',label: "3"},
-        {value: '4',label: "4"},
-        {value: '5',label: "5"},
-
-    ]
+    const swal = require('sweetalert2')
+    const router = useRouter()
     const {
         register,
         handleSubmit,
@@ -22,17 +20,55 @@ const JoinProject = () => {
         setValue,
         formState: { errors },
       } = useForm()
+
+
+      const {client} = useAuth()
+      const [subjects , setSubjects] = useState([])
+      const [projects, setProjects] = useState([])
+      
+  
+      useEffect(()=>{
+          client.get('/api/subject/').then(r=>{
+              let subjectResponse = r.data
+              setSubjects(subjectResponse)
+          })
+      },[])
+  
     
     
     const onSubmit = (data) => {
-        console.log(data)
+        console.log(data.subject)
+        client.post(`/api/subject/${data.subject}/project/${data.project}/join`,data.project
+        ).then(r=>{
+            if (r.status === 201) {
+                router.replace(`/student/yourproject/`)
+                swal.fire({
+                    title: "เข้าร่วมโปรเจกต์สำเร็จ!!! ",
+                    icon: "success",
+                    toast: true,
+                    timer: 3000,
+                    position: 'top-right',
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                })
+                      
+            }
+        })
+
+
+        
+      }
+      //router.replace('/student/yourproject')
+
+      const handleSubject  = (e) => {
+        let subjectId = e.target.value
+        client.get(`/api/subject/${subjectId}/`).then(r=>{
+            let subjectResponse = r.data
+            setProjects(subjectResponse.project_set)
+        })
       }
 
-    const handleSelect = (e) => {
-        setValue('Quantitygroup',e.value)
-        console.log("handleSelect");
-        
-    }
+   
 
     return (
         <form className="flex flex-col border rounded-xl  px-8 pb-10 " onSubmit={handleSubmit(onSubmit)}>
@@ -41,22 +77,36 @@ const JoinProject = () => {
             </div>
             <div className="flex flex-col mt-6 mb-12  ">
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3">วิชา</label>
-                <input placeholder="โปรเจกต์ 1"  className="shadow px-5 w-full h-12 rounded-xl sm:w-auto lg:w-auto " {...register("Subject",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.Subject? "true":"false"}></input>
-                {errors.Subject && <p  role="alert" className="text-red-500 ">{errors.Subject?.message}</p>}
+
+                <select className="shadow px-5 mb-6 w-full h-12 rounded-xl sm:w-auto lg:w-auto " name="subject" {...register("subject", { onChange:handleSubject})}>
+                    {subjects.map(s => <option key={s.id} value={s.id} >{s.subject_name}</option>)}
+                </select>
+
+                {/* <input placeholder="วิชา"  className="shadow px-5 mb-6 w-full h-12 rounded-xl sm:w-auto lg:w-auto " {...register("subject",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.subject? "true":"false"}></input> */}
                 
-            </div>
-            <div >
-                <p className="after:content-['*'] after:ml-0.5 after:text-red-500 mb-5 ">เลือกโปรเจกต์ที่ต้องการเข้าร่วม</p>
                 
-                <Select
-                options={Quantitygroup}
-                onChange={handleSelect}
-                ></Select>
- 
+                
+                {errors.subject && <p  role="alert" className="text-red-500 ">{errors.subject?.message}</p>}
+                
+                
+                <label className="after:content-['*'] after:ml-0.5  after:text-red-500 pb-3">รหัสโปรเจกต์</label>
+
+                <select  name="project" {...register("project")} className="shadow px-5 mb-6 w-full h-12 rounded-xl sm:w-auto lg:w-auto ">
+                    {projects.length > 0  && projects.map(p => <option  key={p.id} value={p.id} >{p.id}</option>)}
+                    {projects.length == 0 && <option>ไม่มีข้อมูล</option>}
+                </select>
+                
+                
+                
+                {/* <input placeholder="รหัสโปรเจกต์"  className="shadow px-5 w-full h-12 rounded-xl sm:w-auto lg:w-auto " {...register("id_project",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.id_project? "true":"false"}></input> */}
+                {errors.id_project && <p  role="alert" className="text-red-500 ">{errors.id_project?.message}</p>}
+                
+           
             </div>
+            
             <div className="border-b-2 mt-14 mb-10 border-extar-light-grey "></div>
             
-            <Button color="primary" title="เข้าร่วมโปรเจกต์"/>
+            <Button color="primary" type="submit" title="เข้าร่วมโปรเจกต์"/>
            
         </form>
     );

@@ -18,36 +18,27 @@ const ResetPassword = () =>{
   }
 
     return (
-        <form className="flex flex-col border rounded-xl p-5 mt-14 " onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col  rounded-xl  p-5 mt-14 h-screen" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-8">
                 <p className="text-xl font-extrabold text-center">เปลี่ยนรหัสผ่าน</p>
             </div>
-            <div className="flex flex-col pb-6 ">
-                <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3">ชื่อผู้ใช้</label>
-                <input placeholder="ชื่อผู้ใช้"  className="shadow px-5 w-80 h-12 rounded-xl sm:w-auto lg:w-auto mb-6"{...register("username",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.username? "true":"false"}></input>
-                {errors.username && <p  role="alert" className="text-red-500 ">{errors.username?.message}</p>}
-
+            <div className="flex flex-col pb-60">
+                
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3">รหัสผ่านเดิม</label>
-                <input placeholder="รหัสผ่านเดิม"  className="shadow px-5 w-80 h-12 rounded-xl sm:w-auto lg:w-auto mb-6"{...register("username",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.username? "true":"false"}></input>
-                {errors.username && <p  role="alert" className="text-red-500 ">{errors.username?.message}</p>}
+                <input placeholder="รหัสผ่านเดิม"  className="shadow px-5 w-full h-12 rounded-xl sm:w-auto lg:w-auto mb-6"{...register("oldpassword",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.oldpassword? "true":"false"}></input>
+                {errors.oldpassword && <p  role="alert" className="text-red-500 ">{errors.oldpassword?.message}</p>}
 
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3">รหัสผ่านใหม่</label>
-                <input placeholder="รหัสผ่านใหม่"  className="shadow px-5 w-80 h-12 rounded-xl sm:w-auto lg:w-auto mb-6"{...register("username",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.username? "true":"false"}></input>
-                {errors.username && <p  role="alert" className="text-red-500 ">{errors.username?.message}</p>}
+                <input placeholder="รหัสผ่านใหม่"  className="shadow px-5 w-full h-12 rounded-xl sm:w-auto lg:w-auto mb-6"{...register("newpassword",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.newpassword? "true":"false"}></input>
+                {errors.newpassword && <p  role="alert" className="text-red-500 ">{errors.newpassword?.message}</p>}
 
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3 pt-3">ยืนยันรหัสผ่านใหม่</label>
-                <input type="password" placeholder="ยืนยันรหัสผ่านใหม่"  className="shadow px-5 w-80 h-12 rounded-xl sm:w-auto lg:w-auto mb-6"{...register("password",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.password? "true":"false"}></input>
-                {errors.password && <p  role="alert" className="text-red-500 ">{errors.password?.message}</p>}
+                <input type="password" placeholder="ยืนยันรหัสผ่านใหม่"  className="shadow px-5 w-full h-12 rounded-xl sm:w-auto lg:w-auto mb-6"{...register("confirmpassword",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.confirmpassword? "true":"false"}></input>
+                {errors.confirmpassword && <p  role="alert" className="text-red-500 ">{errors.confirmpassword?.message}</p>}
 
             </div>
+            <Button  color="primary" onClick={onSubmit} title="ยืนยันการเปลี่ยนรหัสผ่าน"/>
             
-            {
-              currentUser ? (
-              <Button  color="primary" onClick={submitlogin} title="ยืนยันการเปลี่ยนรหัสผ่าน"/>
-              ):(
-                <Button  color="primary" onClick={onSubmit} title="ยืนยันการเปลี่ยนรหัสผ่าน"/>
-                )
-            }
             
         </form>
     )

@@ -12,7 +12,7 @@ axios.defaults.withCredentials = true;
 const swal = require('sweetalert2')
 const AuthContext = createContext();
 
-const client = axios.create({
+export const client = axios.create({
     baseURL: "http://127.0.0.1:8000"
   });
 
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
   //const [user, setUser] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [loadFinished, setLoadFinished] = useState(false);
-  
+  const [token,setToken] = useState(null)
   const router = useRouter()
 
   const submitRegister = (e) =>{
@@ -54,10 +54,15 @@ export const AuthProvider = ({ children }) => {
       
       console.log(res)
       localStorage.setItem("token",res.data.token)
+      setToken(res.data.token)
       client.defaults.headers.common['Authorization'] = "Token "+ localStorage.getItem("token")
 
       await loadUserData()
-      router.replace("/subject")
+
+      console.log("role user",currentUser.role);  
+           
+      router.replace('/student/yourproject')
+
       swal.fire({
         title: "เข้าสู่ระบบเลยเรียบร้อย !!! ",
         icon: "success",
@@ -67,7 +72,7 @@ export const AuthProvider = ({ children }) => {
         timerProgressBar: true,
         showConfirmButton: false,
     })
-     
+    
     }).catch(function(error) {
       Swal.fire({
         icon: "error",
@@ -92,10 +97,11 @@ export const AuthProvider = ({ children }) => {
       let user = JSON.parse(localStorageUser)
       setUser(user)
       setLoadFinished(true)
-      
+      setToken(token)
     }else {
       setUser(null)
       setLoadFinished(false)
+      setToken(nulL)
     }
     
 
@@ -123,6 +129,7 @@ export const AuthProvider = ({ children }) => {
     e.preventDefault;
     localStorage.removeItem("token")
     localStorage.clear();
+    setToken(null)
     client.defaults.headers.common["Authorization"] = null;
     router.push("/login_users")
     swal.fire({
@@ -144,7 +151,7 @@ export const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ currentUser, submitlogin, submitlogout ,submitRegister, loadFinished }}>
+    <AuthContext.Provider value={{ client,currentUser, submitlogin, submitlogout,token ,submitRegister, loadFinished }}>
       
       {children}
      

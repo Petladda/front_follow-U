@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 
 const FromCreateGroup = (params) => {
     const id = params.sid
+    
     const swal = require('sweetalert2')
     const router = useRouter()
     const client = axios.create({
@@ -38,6 +39,7 @@ const FromCreateGroup = (params) => {
     const handleCreate = (data) => {
         console.log(data);
         client.post(`/api/subject/${id}/create`,data)
+        
         .then((res)=>{
             if (res.status === 201){
                 router.replace(`/subject/${id}/`)

@@ -5,12 +5,13 @@ import * as React from "react"
 import { useForm } from "react-hook-form"
 import axios from "axios";
 import { useAuth } from "@/app/context/authentication";
+import { useRouter } from "next/navigation";
 
 
 const LoginUsers= () =>{
 
   const {register,handleSubmit,setError,formState: { errors },} = useForm()
-
+    const router = useRouter()
   const {submitlogin,currentUser} = useAuth()
     
   
@@ -32,7 +33,7 @@ const LoginUsers= () =>{
 
             </div>
             <div className="">
-              <span>ยังไม่มีบัญชี ?</span><a href="register_users" className="ml-3 text-success underline underline-offset-2">ลงทะเบียน</a>  
+              <span>ยังไม่มีบัญชี ?</span><a onClick={()=>router.push('register_users')} className="ml-3 text-success underline underline-offset-2">ลงทะเบียน</a>  
             </div>
             <div className="border-b-2 my-8 border-extar-light-grey  "></div>
             

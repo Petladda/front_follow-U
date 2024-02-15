@@ -7,12 +7,13 @@ import React, { useState,useEffect } from 'react';
 import { useForm } from "react-hook-form"
 import Link from "next/link";
 import { useAuth } from "@/app/context/authentication";
+import { useRouter } from "next/navigation";
 
 
 const RegisterUsers = () =>{
    
     const {submitRegister} = useAuth()
-    
+    const router = useRouter()
       
     const Groupid = [
         {value: '1',label: "P01"},
@@ -68,8 +69,10 @@ const RegisterUsers = () =>{
 
                 
             </div>
-            
-            <div className="border-b-2 mt-8 mb-10 border-extar-light-grey "></div>
+            <div className="mt-3">
+              <span>มีบัญชีแล้ว ?</span><a onClick={()=>router.push('login_users')} className="ml-3 text-success underline underline-offset-2">เข้าสู่ระบบ</a>  
+            </div>
+            <div className="border-b-2 mt-7 mb-10 border-extar-light-grey "></div>
            
             <Button  color="primary" title="ลงทะเบียน"/>
             <div className="font-medium text-center mt-4 ">

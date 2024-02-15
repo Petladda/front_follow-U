@@ -2,11 +2,16 @@ import Button from "../shared/button"
 import Select from "react-select"
 import * as React from "react"
 import { useForm } from "react-hook-form"
-
+import { useAuth } from "@/app/context/authentication"
+import axios from "axios"
+import { useRouter } from "next/navigation"
+import Swal from 'sweetalert2'
 
 
 const FromCreateSubject = () => {
-
+    const swal = require('sweetalert2')
+    const {currentUser,token,client} = useAuth()
+    const router = useRouter()
     const {
         register,
         handleSubmit,
@@ -16,15 +21,34 @@ const FromCreateSubject = () => {
       } = useForm()
     
     
-    const handleCreatesubject = (data) => {
+    const handleCreatesubject = async  (data) => {
         console.log(data)
+        let result = await client.post(`/api/subject-create/`,data).then(
+            response => {
+                //console.log(response)
+                if (response.status === 201) 
+                    {
+                        router.replace(`/teacher/subject/`)
+                        swal.fire({
+                          title: "สร้างวิชาสำเร็จ!!! ",
+                          icon: "success",
+                          toast: true,
+                          timer: 3000,
+                          position: 'top-right',
+                          timerProgressBar: true,
+                          showConfirmButton: false,
+                      })
+                      
+                }
+                
+
+                return response
+                
+            }
+        )
       }
 
-    const handleSelect = (e) => {
-        setValue('Quantitygroup',e.value)
-        console.log("handleSelect");
-        
-    }
+    
 
     return (
         <form className="flex flex-col border rounded-xl  px-8 pb-10 " onSubmit={handleSubmit(handleCreatesubject)}>

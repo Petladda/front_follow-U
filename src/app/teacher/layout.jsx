@@ -1,32 +1,33 @@
 'use client'
 import { useAuth } from "@/app/context/authentication";
-import NavigationMenu from "@/components/layouts/navigationmanu";
-import NavigationTop from "@/components/layouts/navigationtop";
+import NavbarTeacher from "@/components/layouts/navbarteacher";
+
 import { useRouter } from "next/navigation";
-import { Children, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function({children}){
     const {currentUser} = useAuth()
     const router = useRouter()
-   
-    //console.log("current role :" );
+    console.log(currentUser)
+ 
     useEffect(()=>{
+        
         if (currentUser != null){
-            
             if (currentUser.role == "TCH") {
-                router.replace('/subject')
+                
             }else {
-                
-                
+                router.replace('/student/yourproject')
             }
         }
-    },[])
+    },[router.asPath,currentUser])
     
     return (
         <>
-            <NavigationTop/>
+            
+            <div className="h-screen">
             {children}
-            <NavigationMenu/>
+            </div>
+            <NavbarTeacher/>
         </>
     )
 }

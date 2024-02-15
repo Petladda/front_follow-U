@@ -64,11 +64,12 @@ const FormDailyScrum = () =>{
 
     
     return (
-        <form className="mt-5  rounded-xl p-5" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-5 mb-96 h-screen rounded-xl p-5" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
                 <p className="text-dark-grey font-extrabold">Daily Scrum</p>
             </div>
-            <div className="flex flex-col   ">
+            <div>
+              <div className="flex flex-col   ">
                 
                 <label className="  pb-3 pt-4">ชื่อ - สกุล</label>
                 <input value={get_currentUser_fullname()} placeholder="ชื่อ"  className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto "  ></input>
@@ -119,6 +120,8 @@ const FormDailyScrum = () =>{
                 <button className="w-44 h-12 border rounded-xl border-danger hover:bg-danger hover:text-white text-danger text-center  ml-5 sm:ml-24 md:mr-9 ">ยกเลิก</button>
                 <button  className="w-44 h-12 border rounded-xl ml-5 mr-5 sm:mr-24 bg-primary hover:bg-secondary text-center text-white">ตกลง</button>
             </div>
+            </div>
+            
         </form>
         )
 }

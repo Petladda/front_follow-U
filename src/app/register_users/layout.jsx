@@ -13,9 +13,9 @@ export default function({children}){
 
     return (
         <>
-            <NavigationTop/>
+         
             {children}
-            <NavigationMenu/>
+            
         </>
     )
 }

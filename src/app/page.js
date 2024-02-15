@@ -8,16 +8,18 @@ import Image from "next/image";
 
 export default function Home() {
   
+  
   return (
     <main>
-            
-      <NavigationTop/>
+       
 
       <main className=" px-10 my-10 h-screen" >
         
+      
+      
       </main>
 
-      <NavigationMenu/>
+    
             
     </main>
   );

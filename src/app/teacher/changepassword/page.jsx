@@ -9,7 +9,7 @@ const ChangePasswordPage = () => {
     
  
     return (
-      <main className="flex flex-col" >
+      <main className=" " >
         <ResetPassword/>
       </main>
     )

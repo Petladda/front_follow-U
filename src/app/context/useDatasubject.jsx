@@ -16,10 +16,20 @@ const client = axios.create({
 
 export const SubjectProvider = ({children }) => {
     const [project, setProject] = useState([])
+    const [subject, setSubject] = useState([])
+
+    const getSubject= ()=> {
+        client.get("/api/subject/")
+        .then((res)=>{
+            setSubject(res.data)
+        })
+
+    }
 
     
-   
-
+    useEffect(() => {
+        getSubject()
+      }, []);
     return(
         <SubjectContext.Provider value={{project}}>
             {children}
