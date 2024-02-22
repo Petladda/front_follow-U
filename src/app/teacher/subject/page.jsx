@@ -1,4 +1,6 @@
 "use client"
+import { useAuth } from "@/app/context/authentication";
+import { DataSubject } from "@/app/context/useDatasubject";
 import axios from "axios"
 import { useRouter } from "next/navigation";
 import { useState,useEffect} from "react"
@@ -8,21 +10,24 @@ import Swal from 'sweetalert2'
 
 export default function(){
     const swal = require('sweetalert2')
-    const client = axios.create({
-        baseURL: "http://127.0.0.1:8000"
-      });
+    
+    const {client,currentUser} = useAuth()
+    const {subject} = DataSubject()
     const router = useRouter()
-    const [subject, setSubject] = useState([])
-     
-    async function loadSubject() {
-        try {
-            const response = await client.get("/api/subject/");
-            setSubject(response.data)
-            //console.log("loadsubject = ",response);
-        } catch (error) {
-            console.error(error);
+    const [mysubject , setMySubject] = useState([])
+
+    const loadMySubject= async () =>{
+        let result = await client.get(`/api/user/subject`).then(
+            r => {
+                console.log(r.data);
+                setMySubject(r.data)
             }
-        }
+        )
+    }
+
+    useEffect(()=>{
+        loadMySubject()
+    },[currentUser,router.asPath]) 
     
     async function deleteSubject(e) {
         await client.delete(`/api/subject-delete/${e.id}/`)
@@ -51,15 +56,10 @@ export default function(){
 
     }
     
-    
-    useEffect(() => {
-        loadSubject()
-      }, []);
-    
 
 
     return (
-    <main className=" px-10 my-8 " >
+    <main className=" px-4 my-8  h-screen " >
     <div className="flex flex-row justify-between mb-5">
     <p className="font-extrabold my-3">รายวิชาทั้งหมด</p>
         <div className="">     
@@ -69,10 +69,10 @@ export default function(){
         </div>
     </div>
     <div>
-        {subject.map((e) => {
+        {mysubject.map((e) => {
             return (
                 <div key={e.id} {...e} className="border mb-2 rounded-lg my-2 px-5 w-full h-11 flex flex-row justify-between">
-                    <div onClick={()=> router.push(`/subject/${e.id}`)}   className="my-2 cursor-pointer">  วิชา {e.subject_name}  id: {e.id} </div>
+                    <div onClick={()=> router.push(`subject/${e.id}`)}   className="my-2 cursor-pointer">  วิชา {e.subject_name}  id: {e.id} </div>
                     <div className="flex flex-row justify-end ">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 my-2 mr-5 " >
                         <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
@@ -86,7 +86,7 @@ export default function(){
                 </div>
             )
         })}
-        {subject.length === 0 && <div>ไม่มีรายวิชา</div>}
+    {subject.length === 0 && <div>ไม่มีรายวิชา</div>}
     </div>
     
    </main>)

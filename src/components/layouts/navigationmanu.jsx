@@ -9,8 +9,8 @@ const NavigationMenu = () => {
     
     return (
         <section
-        id="bottom-navigation"
-        className="block sticky inset-x-0 bottom-0 z-10  bg-primary shadow "
+       
+        className="block sticky inset-x-0 bottom-0  bg-primary shadow "
       >
         <div id="tabs" className="w-full flex justify-between">
           <a
@@ -35,7 +35,7 @@ const NavigationMenu = () => {
    
           
           <a
-            onClick={()=>router.push(`dailyscrum`)}
+            onClick={()=>router.push(`/student/formstandupmeeting`)}
 
             className="w-full cursor-pointer text-white focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1"
           >
@@ -51,7 +51,7 @@ const NavigationMenu = () => {
             
 
             </svg>
-            <span className="tab tab-account block text-xs">Daily Scrum</span>
+            <span className="tab tab-account block text-xs">Stand up Meeting </span>
             
           </a>
         </div>

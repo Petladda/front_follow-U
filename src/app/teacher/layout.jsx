@@ -24,7 +24,7 @@ export default function({children}){
     return (
         <>
             
-            <div className="h-screen">
+            <div className="px-3">
             {children}
             </div>
             <NavbarTeacher/>

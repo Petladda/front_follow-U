@@ -26,14 +26,14 @@ const NavbarTeacher = () => {
           
           <div id="tabs" className="w-full flex  ">
            
-            <a onClick={()=>router.push(`profile_teacher`)}
+            <a onClick={()=>router.replace(`/teacher/profile_teacher`)}
               className="w-full text-xl my-1 text-white cursor-pointer focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1">
               <span className="tab tab-kategori block text-base ">{currentUser.first_name}</span>
             </a>
 
-            <a onClick={()=>router.push(`subject`)}
+            <a onClick={()=>router.replace(`/teacher/subject`)}
               className="w-full my-1  text-white focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1">  
-              <button type="submit" className="tab tab-kategori block text-base ml-16 ">สร้างโปรเจกต์</button>
+              <button type="submit" className="tab tab-kategori block text-base ml-16 ">สร้างวิชา</button>
             </a>
           </div>
         

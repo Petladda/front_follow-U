@@ -37,7 +37,7 @@ const JoinProject = () => {
     
     
     const onSubmit = (data) => {
-        console.log(data.subject)
+        
         client.post(`/api/subject/${data.subject}/project/${data.project}/join`,data.project
         ).then(r=>{
             if (r.status === 201) {
@@ -58,7 +58,6 @@ const JoinProject = () => {
 
         
       }
-      //router.replace('/student/yourproject')
 
       const handleSubject  = (e) => {
         let subjectId = e.target.value
@@ -98,7 +97,7 @@ const JoinProject = () => {
                 
                 
                 
-                {/* <input placeholder="รหัสโปรเจกต์"  className="shadow px-5 w-full h-12 rounded-xl sm:w-auto lg:w-auto " {...register("id_project",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.id_project? "true":"false"}></input> */}
+                
                 {errors.id_project && <p  role="alert" className="text-red-500 ">{errors.id_project?.message}</p>}
                 
            

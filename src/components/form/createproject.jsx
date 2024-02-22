@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 
 const FromCreateGroup = (params) => {
-    const id = params.sid
+    const id = params.cid
     
     const swal = require('sweetalert2')
     const router = useRouter()
@@ -37,12 +37,12 @@ const FromCreateGroup = (params) => {
     
     
     const handleCreate = (data) => {
-        console.log(data);
-        client.post(`/api/subject/${id}/create`,data)
+        
+        client.post(`/api/subject/${id.sid}/create`,data)
         
         .then((res)=>{
             if (res.status === 201){
-                router.replace(`/subject/${id}/`)
+                router.replace(`/teacher/subject/${id.sid}`)
                 swal.fire({
                   title: "สร้างโปรเจกต์สำเร็จ!!! ",
                   icon: "success",
@@ -64,7 +64,7 @@ const FromCreateGroup = (params) => {
 
 //<p className="mb-5 ">ชื่อวิชา</p>
     return (
-        <form className="flex flex-col border rounded-xl mt-6 px-8 pb-10 " onSubmit={handleSubmit(handleCreate)}>
+        <form className="flex flex-col border rounded-xl mt-12 px-8 pb-10 " onSubmit={handleSubmit(handleCreate)}>
             <div className="mb-4 mt-6">
                 <p className="text-xl font-extrabold text-center">สร้างโปรเจกต์</p>
             </div>

@@ -14,7 +14,7 @@ export default function({params}){
   const client = axios.create({
       baseURL: "http://127.0.0.1:8000"
   });
-  console.log(params);
+  
 
     return (
         <main className="h-screen px-6" >
@@ -41,8 +41,8 @@ export default function({params}){
     )
 }
 
-/*<form className="" >
-         <div className=" form-control my-2 flex flex-row">
+/*<form className="h-auto" >
+         <div className="overflow-y-auto form-control my-2 flex flex-row">
            <div className="w-full pr-2">
            <input type="text" placeholder="เพิ่มtask" className="h-8 w-full border rounded-lg pl-2 text-sm" />
            </div>

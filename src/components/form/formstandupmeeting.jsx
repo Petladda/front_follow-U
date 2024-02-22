@@ -4,11 +4,14 @@ import { useForm } from "react-hook-form"
 import Select from "react-select"
 import axios from "axios";
 import { useAuth } from "@/app/context/authentication";
+import { DataSubject } from "@/app/context/useDatasubject";
+import { useState } from "react"
 
-const FormDailyScrum = () =>{
-    const url = "http://127.0.0.1:8000"
+const FormStandupMeeting = () =>{
 
-    const {currentUser} = useAuth()
+    const {currentUser,client} = useAuth()
+    const {subject} = DataSubject()
+    const [projects, setProjects] = useState([])
     
     const note = [
         {value: 'work',label: "วันนี้ทำงาน"},
@@ -17,15 +20,7 @@ const FormDailyScrum = () =>{
         {value: 'pass',label: "ตกลงกันว่าวันนี้ไม่ทำงาน"},
     ]
 
-    async function getScrumDaily() {
-        try {
-          const response = await axios.get();
-          //console.log(response);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-      getScrumDaily()
+    
 
     const {
         register,
@@ -39,13 +34,7 @@ const FormDailyScrum = () =>{
 
     const onSubmit = async(data) => {
         console.log(data)
-        try {
-            const response = await axios.post();
-            console.log(response);
-          } catch (error) {
-            console.error(error);
-          }
-        }
+    }
       
     
     const handleSelectNote = (e) =>{
@@ -60,28 +49,41 @@ const FormDailyScrum = () =>{
       return `${currentUser?.first_name ?? "first_name"} ${currentUser?.last_name ?? "last_name"}`
     }
 
-
+    const handleSubject  = (e) => {
+        let subjectId = e.target.value
+        client.get(`/api/subject/${subjectId}/`).then(r=>{
+            let subjectResponse = r.data
+            setProjects(subjectResponse.project_set)
+        })
+      }
 
     
     return (
-        <form className="mt-5 mb-96 h-screen rounded-xl p-5" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-5 rounded-xl p-5" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
-                <p className="text-dark-grey font-extrabold">Daily Scrum</p>
+                <p className="text-dark-grey font-extrabold">Stand up Meeting </p>
             </div>
             <div>
               <div className="flex flex-col   ">
                 
                 <label className="  pb-3 pt-4">ชื่อ - สกุล</label>
-                <input value={get_currentUser_fullname()} placeholder="ชื่อ"  className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto "  ></input>
+                <input value={get_currentUser_fullname()} disabled className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto "  ></input>
                
                 <label className="  pb-3 pt-4">รหัสนิสิต</label>
-                <input value={currentUser?.id_student} placeholder="รหัสนิสิต" className="px-5 shadow w-auto h-12 rounded-xl  sm:w-auto lg:w-auto"></input>
+                <input value={currentUser?.id_student} disabled className="px-5 shadow w-auto h-12 rounded-xl  sm:w-auto lg:w-auto"></input>
 
                 <label className="  pb-3 pt-4">ชื่อวิชา</label>
-                <input placeholder="ชื่อวิชา" className="px-5 shadow w-auto h-12 rounded-xl  sm:w-auto lg:w-auto"></input>
+                <select className="shadow px-5 mb-6 w-full h-12 rounded-xl sm:w-auto lg:w-auto " name="subject" {...register("subject", { onChange:handleSubject})}>
+                    {subject.map(s => <option key={s.id} value={s.id} >{s.subject_name}</option>)}
+                </select>
+                
 
                 <label className="  pb-3 pt-4">รหัสโปรเจกต์</label>
-                <input placeholder="รหัสโปรเจกต์" className="px-5 shadow w-auto h-12 rounded-xl  sm:w-auto lg:w-auto"></input>
+                <select  name="project" {...register("project")} className="shadow px-5 mb-6 w-full h-12 rounded-xl sm:w-auto lg:w-auto ">
+                    {projects.length > 0  && projects.map(p => <option  key={p.id} value={p.id} >{p.id}</option>)}
+                    {projects.length == 0 && <option>ไม่มีข้อมูล</option>}
+                </select>
+                
 
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3 pt-4">วันที่</label>
                 <input placeholder="วันที่" type="date" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto"{...register("date",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.date? "true":"false"}></input>
@@ -126,4 +128,4 @@ const FormDailyScrum = () =>{
         )
 }
 
-export default FormDailyScrum;
+export default FormStandupMeeting;

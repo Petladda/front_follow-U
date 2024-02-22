@@ -4,7 +4,7 @@ import React from "react";
 import Select from "react-select"
 import { useForm } from "react-hook-form";
 
-const ModalTask = ({ closetask })=>{
+const ModalDetailTask = ({ closetask })=>{
 
     const {
         register,
@@ -86,11 +86,11 @@ const ModalTask = ({ closetask })=>{
                     
                         </div>
                         <div className="flex flex-col  mt-4 ">
-                            <p className="pb-3 pt-4">เวลาที่คาดว่าจะทำงานเสร็จ / ชั่วโมง</p>
+                            <p className="pb-3 pt-4">เวลาที่คาดว่าจะทำงานเสร็จ</p>
                             <input placeholder="กี่ชั่วโมง" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
                         </div>
                         <div className="flex flex-col  mt-4 ">
-                            <p className="pb-3 pt-4">เวลาที่ทำงานเสร็จ / ชั่วโมง</p>
+                            <p className="pb-3 pt-4">เวลาที่ทำงานเสร็จ</p>
                             <input placeholder="กี่ชั่วโมง" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
                         </div>
                         
@@ -107,4 +107,4 @@ const ModalTask = ({ closetask })=>{
     );
 }
 
-export default ModalTask;
+export default ModalDetailTask;

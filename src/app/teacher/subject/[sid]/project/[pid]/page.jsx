@@ -1,6 +1,6 @@
 
 "use client"
-import ModalBacklog from "@/components/modal/modalbacklog";
+
 import { useForm } from "react-hook-form"
 import { useState,useEffect } from "react"
 import axios from "axios";
@@ -8,18 +8,9 @@ import Swal from 'sweetalert2'
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/authentication";
 import { DataSubject } from "@/app/context/useDatasubject";
+import ModalDetailBacklog from "@/components/modal/modaldetailbacklog";
 
 export default function({params}){
-
-  
-  const {
-    register,
-    handleSubmit,
-    setError,
-    setValue,
-    formState: { errors },
-  } = useForm()
-
   const [openModalBacklog, setModalBacklog] = useState(false);
   
   //const id = params.pid
@@ -55,30 +46,6 @@ export default function({params}){
   }, [subjectID, client, params.pid]);
 
 
-  const handleCreatebacklog = (e) =>{
-
-    client.post(`/api/subject/${subjectID[0]}/project/${params.pid}/productbacklog-create/`,e)
-    .then((res)=>{
-      //console.log("respone backlig = ",res);
-      if (res.status === 201) {
-        router.replace(`/student/yourproject/${params.pid}`)
-        swal.fire({
-          title: "สร้าง Product Backlog สำเร็จ!!! ",
-          icon: "success",
-          toast: true,
-          timer: 3000,
-          position: 'top-right',
-          timerProgressBar: true,
-          showConfirmButton: false,
-      })
-      }
-      
-    })
-
-  }
-
-
-
   const handleSelectModal = (item)=>{
     //console.log("elememt",item);
     setModalBacklog(true)
@@ -86,7 +53,7 @@ export default function({params}){
   }
 
   return (
-    <main className="h-screen px-6" >
+    <main className="h-screen px-6 mt-7 mb-3" >
       <div className="">
         <p className="text-xl font-extrabold text-center">รหัสโปรเจกต์ : {params.pid} </p>
         {members.map((e,index)=>{
@@ -105,38 +72,27 @@ export default function({params}){
         
       </div>
       <div className="border-b-2 my-6 border-extar-light-grey "></div>
-      <form >
-        
+     
         <div className="flex justify-between">
           <p className="pt-2 w-32">ชื่อโปรเจกต์ : </p>
-          <input 
-            name="project_name"
-            placeholder="ชื่อโปรเจกต์" className="shadow px-5 w-full h-8 rounded-xl lg:w-11/12  border-gray-700 ml-2" ></input>
+          <p  placeholder="ชื่อโปรเจกต์" className="shadow px-5 w-full h-8 rounded-xl lg:w-11/12  border-gray-700 ml-2" >{projectdetail.project_name}</p>
         </div>
         <div className="flex justify-between">
           <p className="pt-2 w-20">Trello : </p>
-          <input  
-            name="trello_link"
-            placeholder="Trello link" className="shadow px-5 w-full h-8 rounded-xl lg:w-11/12  border-gray-700 ml-2 mt-2" ></input>
+          <a  href={projectdetail.trello_link} className="shadow px-5 w-full h-8 rounded-xl lg:w-11/12  ml-2 mt-2" >{projectdetail.trello_link}</a>
         </div>
         <div className="flex justify-between">
           <p className="pt-2 w-20">Figma : </p>
-          <input 
-            name="figma_link"
-            placeholder="Figma link" className="shadow px-5 w-full h-8 rounded-xl lg:w-11/12  border-gray-700 ml-2 mt-2" ></input>
+          <a href={projectdetail.figma_link} className="shadow px-5 w-full h-8 lg:w-11/12 underline underline-offset-2  ml-2 mt-2" >{projectdetail.figma_link}</a>
         </div>
-      </form>
+      
       
       <p className="pt-2">Stand up Meeting :
         <a onClick={()=>router.replace('/student/standupmeeting')} className="ml-3 underline underline-offset-2">View</a> 
       </p>
-      <form onSubmit={handleSubmit(handleCreatebacklog)}>
+      <form>
           <p className="pt-2">Product backlogs : 
-          <input placeholder="จำนวน" type="number" {...register("count", {
-              valueAsNumber: true,
-              pattern:{
-                value: /^(0|[1-9]\d*)(\.\d+)?$/
-              },})}  className="shadow px-4 w-24 h-8 rounded-xl lg:w-11/12  border-gray-700 mx-4 mt-2 " ></input>
+          <input placeholder="จำนวน" type="number" className="shadow px-4 w-24 h-8 rounded-xl lg:w-11/12  border-gray-700 mx-4 mt-2 " ></input>
           <button type="submit" className="h-8 w-12   bg-primary rounded-lg text-white ">เพิ่ม</button>
           </p>
       </form>
@@ -168,9 +124,8 @@ export default function({params}){
         })}
 
         </div>
-        {openModalBacklog && <ModalBacklog sid={subjectID[0]} bid={selectbacklog} pid={params.pid}  closebacklog={setModalBacklog} />}
+        {openModalBacklog && <ModalDetailBacklog sid={subjectID[0]} bid={selectbacklog} pid={params.pid}  closebacklog={setModalBacklog} />}
 
     </main>
   )
 }
-// 

@@ -21,7 +21,7 @@ const NavigationTop = ()=>{
           
           <div id="tabs" className="w-full flex  ">
            
-            <a onClick={()=>router.replace('profile_student')}
+            <a onClick={()=>router.replace('/student/profile_student')}
               className="w-full text-xl my-1 text-white cursor-pointer focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1">
               <span className="tab tab-kategori block text-base ">{currentUser.first_name}</span>
             </a>

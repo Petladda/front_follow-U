@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter()
 
   const submitRegister = (e) =>{
-    console.log(e);
+    
     e.preventDefault;
     client.post("/api/register",e
     ).then(function(res){
@@ -52,14 +52,14 @@ export const AuthProvider = ({ children }) => {
   
     ).then(async function(res) {
       
-      console.log(res)
+      
       localStorage.setItem("token",res.data.token)
       setToken(res.data.token)
       client.defaults.headers.common['Authorization'] = "Token "+ localStorage.getItem("token")
 
       await loadUserData()
 
-      console.log("role user",currentUser.role);  
+      
            
       router.replace('/student/yourproject')
 
@@ -108,7 +108,7 @@ export const AuthProvider = ({ children }) => {
     if(token == null){
       setUser(null)
       setLoadFinished(true)
-     // router.replace("/login_users")
+      router.replace("/login_users")
     }else {
       client.defaults.headers.common['Authorization'] = "Token "+ localStorage.getItem("token")
       let result = await client.get("/api/user")

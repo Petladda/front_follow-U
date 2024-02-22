@@ -1,4 +1,3 @@
-import FormDailyScrum from "@/components/form/formdailyscrum";
 
 
 export default function(){

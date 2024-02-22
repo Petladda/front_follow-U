@@ -1,12 +1,11 @@
 import FormStandupMeeting from "@/components/form/formstandupmeeting";
 
 
-
 export default function(){
     return (
-    <main className=" " >
+    <main className="" >
        
-    <FormStandupMeeting/>
+        <FormStandupMeeting/>
     
      </main>
 )

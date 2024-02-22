@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 export default function({params}){
 
-  console.log("XXX")
+ 
   const {
     register,
     handleSubmit,
@@ -102,7 +102,7 @@ export default function({params}){
           </div>
         </form>
         
-        <p className="pt-2">Daily scrum :
+        <p className="pt-2">Stand up Meeting :
           <a href="register_users" className="ml-3 underline underline-offset-2">View</a> 
         </p>
         <form onSubmit={handleSubmit(handleCreatebacklog)}>

@@ -1,5 +1,5 @@
 
-import FormDailyScrum from "@/components/form/formdailyscrum";
+
 import ChooseStatus from "@/components/layouts/choosestatus";
 import NavigationMenu from "@/components/layouts/navigationmanu";
 import NavigationTop from "@/components/layouts/navigationtop";

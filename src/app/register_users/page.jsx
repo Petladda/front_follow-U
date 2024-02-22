@@ -8,7 +8,7 @@ import RegisterUsers from "@/components/register/register";
 const RegisterUsersPage = () => {
  
     return (
-      <main className="h-screen " >
+      <main className="h-screen px-5" >
        
         <RegisterUsers/>
         

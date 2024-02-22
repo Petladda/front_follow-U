@@ -24,8 +24,9 @@ export default function({children}){
     return (
         <>
             <NavigationTop/>
-            <div className="h-screen px-3">
+            <div className="px-3">
             {children}
+            
             </div>
             <NavigationMenu/>
         </>

@@ -3,30 +3,14 @@ import { useAuth } from "@/app/context/authentication";
 import { useRouter } from "next/navigation";
 import Swal from 'sweetalert2'
 
-const ModalBacklog = ({sid, pid, bid, closebacklog }) => {
+const ModalDetailBacklog = ({sid, pid, bid, closebacklog }) => {
     const router = useRouter();
     const {client} = useAuth()
     const swal = require('sweetalert2')
     const id = bid.id;
-    //console.log("sid",sid);
+    console.log("sid",sid);
     
-    const handleDeleteBacklog = ()=>{
-        client.delete(`/api/subject/${sid}/project/${pid}/productbacklog-delete/${id}`)
-        .then((res)=>{
-            if (res.status === 201) {
-                router.replace(`/student/yourproject/${pid}`)
-                swal.fire({
-                    title: "ลบ Product Backlog สำเร็จ!!! ",
-                    icon: "success",
-                    toast: true,
-                    timer: 3000,
-                    position: 'top-right',
-                    timerProgressBar: true,
-                    showConfirmButton: false,
-                })
-            }
-          })
-    }
+   
 
     return (
         <>
@@ -38,7 +22,7 @@ const ModalBacklog = ({sid, pid, bid, closebacklog }) => {
                     <div className="my-2 flex flex-row justify-around px-6">
                         <button type="button" 
                             onClick={() => {
-                                router.push(`/student/yourproject/${pid}/backlog/${id}`);
+                                router.push(`/teacher/subject/${sid}/project/${pid}/viewbacklog/${id}`);
                             }}  
                             className="h-12 w-24 border bg-primary rounded-xl text-white"
                         >
@@ -46,7 +30,6 @@ const ModalBacklog = ({sid, pid, bid, closebacklog }) => {
                         </button>
                         <button 
                             className="h-12 w-24 border border-danger rounded-xl text-danger" 
-                            onClick={() => handleDeleteBacklog()}
                         >
                             ลบ
                         </button>
@@ -59,4 +42,4 @@ const ModalBacklog = ({sid, pid, bid, closebacklog }) => {
     );
 }
 
-export default ModalBacklog;
+export default ModalDetailBacklog;

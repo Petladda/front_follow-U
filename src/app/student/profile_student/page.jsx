@@ -24,7 +24,7 @@ const ProfilePage = () => {
             <p className="mb-3">ชื่อจริง</p>
             <p className="border w-25 h-12 px-3 py-2 rounded-2xl mb-5">{currentUser?.first_name}</p>
             <p className="mb-3">นามสกุล</p>
-            <p className="border w-25 h-12 px-3 rounded-2xl mb-5">{currentUser?.last_name}</p>
+            <p className="border w-25 h-12 px-3 py-2 rounded-2xl mb-5">{currentUser?.last_name}</p>
         </div>
       </main>
     )

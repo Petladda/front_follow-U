@@ -17,6 +17,7 @@ const client = axios.create({
 export const SubjectProvider = ({children }) => {
     const [project, setProject] = useState([])
     const [subject, setSubject] = useState([])
+    const [subjectID ,setSubjectID] = useState([])
 
     const getSubject= ()=> {
         client.get("/api/subject/")
@@ -25,13 +26,26 @@ export const SubjectProvider = ({children }) => {
         })
 
     }
-
+    
     
     useEffect(() => {
         getSubject()
       }, []);
+
+      
+      
+    
+      
+      useEffect(() => {
+        if (subject) {
+          const ids = subject.map((e) => e.id);
+          setSubjectID(ids);
+        }
+      }, [subject]); 
+    
+
     return(
-        <SubjectContext.Provider value={{project}}>
+        <SubjectContext.Provider value={{subject,subjectID}}>
             {children}
         </SubjectContext.Provider>
     )
