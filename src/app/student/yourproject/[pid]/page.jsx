@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/authentication";
 import { DataSubject } from "@/app/context/useDatasubject";
+import _ from "lodash";
 
 export default function({params}){
 
@@ -77,12 +78,41 @@ export default function({params}){
 
   }
 
-
-
   const handleSelectModal = (item)=>{
-    //console.log("elememt",item);
-    setModalBacklog(true)
-    setSelectBackLog(item)
+  //console.log("elememt",item);
+  setModalBacklog(true)
+  setSelectBackLog(item)
+  }
+
+
+
+ 
+
+  const putProject = async (e) => {
+    console.log(e.target.name,e.target.value)
+    let {data} = await client.put(`/api/subject/${subjectID[0]}/project-update/${params.pid}/`,{
+      [e.target.name] : e.target.value
+    })
+
+    console.log(data)
+    setProjectDetail({
+      ...projectdetail,
+      [e.target.name] : data[e.target.name]
+    })
+  }
+
+  let debounced  = _.debounce((e) => putProject(e),300,{ 'maxWait': 500 })
+
+
+  const updateValue = async (e)=>{
+    console.log(e.target.name,e.target.value)
+    debounced(e)
+    setProjectDetail({
+      ...projectdetail,
+      [e.target.name] : e.target.value
+    })
+
+    
   }
 
   return (
@@ -110,25 +140,25 @@ export default function({params}){
         <div className="flex justify-between">
           <p className="pt-2 w-32">ชื่อโปรเจกต์ : </p>
           <input 
-            name="project_name"
+            name="project_name" onInput={updateValue} value={projectdetail.project_name}
             placeholder="ชื่อโปรเจกต์" className="shadow px-5 w-full h-8 rounded-xl lg:w-11/12  border-gray-700 ml-2" ></input>
         </div>
         <div className="flex justify-between">
           <p className="pt-2 w-20">Trello : </p>
           <input  
-            name="trello_link"
+            name="trello_link" onInput={updateValue} value={projectdetail.trello_link}
             placeholder="Trello link" className="shadow px-5 w-full h-8 rounded-xl lg:w-11/12  border-gray-700 ml-2 mt-2" ></input>
         </div>
         <div className="flex justify-between">
           <p className="pt-2 w-20">Figma : </p>
           <input 
-            name="figma_link"
+            name="figma_link" onInput={updateValue} value={projectdetail.figma_link}
             placeholder="Figma link" className="shadow px-5 w-full h-8 rounded-xl lg:w-11/12  border-gray-700 ml-2 mt-2" ></input>
         </div>
       </form>
       
       <p className="pt-2">Stand up Meeting :
-        <a onClick={()=>router.replace('/student/standupmeeting')} className="ml-3 underline underline-offset-2">View</a> 
+        <a onClick={()=>router.replace('/student/standupmeetingdetail')} className="ml-3 underline underline-offset-2">View</a> 
       </p>
       <form onSubmit={handleSubmit(handleCreatebacklog)}>
           <p className="pt-2">Product backlogs : 
@@ -146,16 +176,16 @@ export default function({params}){
         {productbacklog_set.map((item,index)=>{
           return(
             <div key={index} >
-              {item.status === false ? ( 
+              {item.status === "done" ? ( 
                 <div  className="cursor-pointer" onClick={() => handleSelectModal(item)}>
-                  <div className="w-full h-full border rounded-3xl  border-danger text-center ">
+                  <div className="w-full h-full border rounded-3xl  border-success  text-center ">
                     <p className="my-12">{index+1}</p>
                   </div>
                     
                 </div>
                 ) : (
                   <div  className="cursor-pointer" onClick={() => handleSelectModal(item)}>
-                    <div className="w-full h-full border rounded-3xl  border-success text-center ">
+                    <div className="w-full h-full border rounded-3xl border-danger text-center ">
                       <p className="my-12">{index+1}</p>
                     </div>
                   </div>

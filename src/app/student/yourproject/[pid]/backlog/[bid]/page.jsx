@@ -9,6 +9,7 @@ import { useAuth } from "@/app/context/authentication";
 import { DataSubject } from "@/app/context/useDatasubject";
 import Select from "react-select"
 import ModalTask from "@/components/modal/modaltask";
+import _ from "lodash";
 
 
 export default function(params){
@@ -36,10 +37,11 @@ export default function(params){
     formState: { errors },
     } = useForm()
 
-  const Status = [
-      {value: 'todo',label: "todo"},
-      {value: 'doing',label: "doing"},
-      {value: 'done',label: "done"},
+  const status = [
+    
+      {value : 'todo',label: 'todo' },
+      {value : 'doing',label: 'doing' },
+      {value : 'done',label: 'done' },
       
   ]
 
@@ -51,7 +53,7 @@ export default function(params){
   ]
 
   useEffect(() => {
-   const loadProjectDetail = () => {
+   const loadBacklogDetail = () => {
      if (subjectID.length > 0 && client && pid) {
        client.get(`/api/subject/${subjectID[0]}/project/${pid}/productbacklog/${bid}`)
          .then((res) => {
@@ -65,15 +67,9 @@ export default function(params){
      }
    };
 
-   loadProjectDetail();
+   loadBacklogDetail();
  }, [subjectID, client,pid],router.asPath);
 
-  const handleSelectStatus = (e) =>{
-      setValue('Status',e.value)
-      console.log("setValue",e);
-  }
-
-    
 
   const handleCreteTask = (e) => {
     client.post(`/api/subject/${subjectID[0]}/project/${pid}/productbacklog/${bid}/task-create`,e)
@@ -119,10 +115,40 @@ export default function(params){
     setSelectTask(task)
   }
    
+  const putBacklog = async (e) => {
+    console.log(e.target.name,e.target.value)
+    let {data} = await client.put(`/api/subject/${subjectID[0]}/project/${pid}/productbacklog-update/${bid}`,{
+      [e.target.name] : e.target.value
+    })
 
-  const handleAddTodo = () => (
-    setTodos([...todos, inputValue])
-  );
+    console.log(data)
+    setBacklogDetail({
+      ...backlogdetail,
+      [e.target.name] : data[e.target.name]
+    })
+  }
+
+  let debounced  = _.debounce((e) => putBacklog(e),500,{ 'maxWait': 1000 })
+
+
+  const updateValue = async (e)=>{
+    console.log(e)
+    debounced(e)
+    setBacklogDetail({
+      ...backlogdetail,
+      [e.target.name] : e.target.value
+    })
+  }
+
+
+  const updateStatus = async (e)=>{
+    console.log(e)
+    
+    setBacklogDetail({
+      ...backlogdetail,
+      'status' : e.value
+    })
+  }
 
   return (
     <main className=" px-6" >
@@ -133,48 +159,71 @@ export default function(params){
             </div>
             <div className="flex flex-col mt-4">
                 <p className=" mb-2">ชื่อ product backlog</p>
-                <input value={backlogdetail.title_product} placeholder="ชื่อ product backlog" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
+                <input 
+                name="title_product"
+                onInput={updateValue}
+                value={backlogdetail.title_product} 
+                placeholder="ชื่อ product backlog" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
             </div>
+            
             <div className="flex flex-col mt-4">
                 <p className=" mb-2">คำอธิบายสำหรับ product backlog </p>
-                <input placeholder="คำอธิบาย"  className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700" ></input>
+                <input 
+                name="description"
+                onInput={updateValue}
+                value={backlogdetail.description} 
+                placeholder="คำอธิบาย"  className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700" ></input>
             </div>
             <div className="flex flex-col mt-4">
                 <label className=" mb-2">วันที่คาดว่าจะทำงานเสร็จ</label>
-                <input placeholder="วันที่"  type="date" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700" ></input>
+                <input 
+                name="date_to_do"
+                onInput={updateValue}
+                value={backlogdetail.date_to_do}
+                placeholder="วันที่"  type="date" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700" ></input>
             </div>
             <div className="flex flex-col  mt-4 ">
                 <p className=" mb-2">เวลาที่คาดว่าจะทำงานเสร็จ / ชั่วโมง</p>
-                <input placeholder="กี่ชั่วโมง" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
+                <input 
+                name="hour_todo"
+                onInput={updateValue}
+                value={backlogdetail.hour_todo}
+                placeholder="กี่ชั่วโมง" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
             </div>
+
+           
             <div className="" >
                 <p className=" mb-2 mt-4">สถานะ</p>
-                <Select className=" bg-gray-300 text-gray-600 border-gray-300"
-        
-                    options={Status}
-                    
-                    onChange={handleSelectStatus}
-                    ></Select>
+                <select value={backlogdetail.status} placeholder="เลือกสถานะของการทำงาน" onChange={updateValue} name="status" className="shadow px-5 mb-6 w-full h-12 rounded-xl sm:w-auto lg:w-auto "  >
+                    {status.map(s => <option key={s.value} value={s.value} >{s.label}</option>)}
+                </select>
+                
                     
             </div>
             <div className="" >
                 <p className=" mb-2 mt-4 ">ความสำคัญ</p>
-                <Select className=" bg-gray-300 text-gray-600 border-gray-300"
-        
-                    options={Priority}
-                    
-                    onChange={handleSelectStatus}
-                    ></Select>
+                <select value={backlogdetail.important} onChange={updateValue}  placeholder="เลือกความสำคัญของการทำงาน" name="important" className="shadow px-5 mb-6 w-full h-12 rounded-xl sm:w-auto lg:w-auto "  >
+                    {Priority.map(p => <option key={p.value} value={p.value} >{p.label}</option>)}
+                </select>
+                
                     
             </div>
             <div className="flex flex-col mt-4">
                 <label className="mb-2">วันที่ทำงานเสร็จ</label>
-                <input placeholder="วันที่" type="date" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto " ></input>
+                <input 
+                onInput={updateValue}
+                name="date_done"
+                value={backlogdetail.date_done}
+                placeholder="วันที่" type="date" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto " ></input>
             </div>
             
             <div className="flex flex-col  mt-4 ">
                 <p className="mb-2">เวลาที่ทำงานเสร็จ / ชั่วโมง</p>
-                <input placeholder="กี่ชั่วโมง" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
+                <input 
+                name="hour_done"
+                onInput={updateValue}
+                value={backlogdetail.hour_done}
+                placeholder="กี่ชั่วโมง" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
             </div>
         </div>
       </form>
@@ -185,7 +234,7 @@ export default function(params){
       <form  onSubmit={handleSubmit(handleCreteTask)} >
         <div className=" form-control my-2 flex flex-row">
           <div className="w-full pr-2">
-          <input name="taskname" {...register("taskname")}  type="text" placeholder="เพิ่มtask" className="h-8 w-full border rounded-lg pl-2 text-sm"  />
+          <input name="taskname" {...register("taskname")}  type="text" placeholder="เพิ่มชื่อ task" className="h-8 w-full border rounded-lg pl-2 text-sm"  />
           </div>
           <button type="submit" className="h-8 w-12  bg-primary rounded-lg text-white" >เพิ่ม</button>
         </div>
@@ -194,8 +243,8 @@ export default function(params){
         {task_set.map((task,index) => (
           
           <div key={task.id} {...task} >
-            {task.status === false ? ( 
-            <div className="border border-danger rounded-lg my-5 px-5 w-full h-11 flex flex-row justify-between">
+            {task.status === "done"? ( 
+            <div className="border rounded-lg border-success my-5 px-5 w-full h-11 flex flex-row justify-between">
               <p className="my-2">{task.task_id}</p>
               <div className="flex flex-row justify-end ">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 my-2 mr-5 " onClick={() => handleSelectTask(task)}>
@@ -207,7 +256,7 @@ export default function(params){
               </div>
             </div>
             ) : (
-              <div className="border border-success rounded-lg my-5 px-5 w-full h-11 flex flex-row justify-between">
+              <div className="border border-danger   rounded-lg my-5 px-5 w-full h-11 flex flex-row justify-between">
                 <p className="my-2">{task.task_id}</p>
                 <div className="flex flex-row justify-end ">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 my-2 mr-5 " onClick={() => handleSelectTask(task)}>
@@ -224,7 +273,7 @@ export default function(params){
           </div>
         ))}
       </ul>
-      {openModalTask && <ModalTask tid={selecttask} closetask={setModalTask}
+      {openModalTask && <ModalTask tid={selecttask} pid={pid} bid={bid} closetask={setModalTask}
       
       />}
     </main>

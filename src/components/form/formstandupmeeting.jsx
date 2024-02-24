@@ -32,8 +32,17 @@ const FormStandupMeeting = () =>{
         formState: { errors },
       } = useForm()
 
-    const onSubmit = async(data) => {
+    const onSubmit = (data) => {
         console.log(data)
+        client.post(`/api/subject/${data.subject}/project/${data.project}/stand_up_meeting-create`,
+            data
+        ).then((res)=>{
+            console.log(res)
+            if (res.status === 201) {
+                console.log("succsses");
+                reset();
+            }
+        })
     }
       
     
@@ -90,7 +99,7 @@ const FormStandupMeeting = () =>{
                 {errors.date && <p  role="alert" className="text-red-500 ">{errors.date?.message}</p>}
 
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3 pt-4">เมื่อวานทำอะไร</label>
-                <input placeholder="เมื่อวานทำอะไร" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto"{...register("yesterday",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.yesterday? "true":"false"}yesterday></input>
+                <input placeholder="เมื่อวานทำอะไร" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto"{...register("yesterday",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.yesterday?"true":"false"}></input>
                 {errors.yesterday && <p  role="alert" className="text-red-500 ">{errors.yesterday?.message}</p>}
 
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3 pt-4">วันนี้จะทำอะไร</label>
@@ -103,6 +112,7 @@ const FormStandupMeeting = () =>{
             </div>
             <div className="mb-4">
                 <p className="after:content-['*'] after:ml-0.5 after:text-red-500 mb-3 mt-4">หมายเหตุ</p>
+                
                 <Select
         
                     options={note}
@@ -129,3 +139,7 @@ const FormStandupMeeting = () =>{
 }
 
 export default FormStandupMeeting;
+
+/*<select className="shadow px-5 mb-6 w-full h-12 rounded-xl sm:w-auto lg:w-auto " name="note" {...register("note")}>
+                    {note.map(n => <option key={n.id} value={n.value} >{n.label}</option>)}
+                </select> */
