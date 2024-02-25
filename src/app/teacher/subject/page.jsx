@@ -1,6 +1,7 @@
 "use client"
 import { useAuth } from "@/app/context/authentication";
 import { DataSubject } from "@/app/context/useDatasubject";
+import ModalUpdateSubject from "@/components/modal/modalupdatesubject";
 import axios from "axios"
 import { useRouter } from "next/navigation";
 import { useState,useEffect} from "react"
@@ -15,6 +16,8 @@ export default function(){
     const {subject} = DataSubject()
     const router = useRouter()
     const [mysubject , setMySubject] = useState([])
+    const [openmodalsubject, setOpenModalSubject] = useState(false);
+    const [selectsubject , setSelectSubject] = useState([])
 
     const loadMySubject= async () =>{
         let result = await client.get(`/api/user/subject`).then(
@@ -52,6 +55,11 @@ export default function(){
        
     }
 
+    const handleSelectSubject =(e)=>{
+        setOpenModalSubject(true)
+        setSelectSubject(e)
+      }
+
     const handleEdit = () =>{
 
     }
@@ -74,7 +82,7 @@ export default function(){
                 <div key={e.id} {...e} className="border mb-2 rounded-lg my-2 px-5 w-full h-11 flex flex-row justify-between">
                     <div onClick={()=> router.push(`subject/${e.id}`)}   className="my-2 cursor-pointer">  วิชา {e.subject_name}  id: {e.id} </div>
                     <div className="flex flex-row justify-end ">
-                        <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 my-2 mr-5 " >
+                        <svg onClick={() => handleSelectSubject(e)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 my-2 mr-5 " >
                         <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                         </svg>
 
@@ -88,7 +96,7 @@ export default function(){
         })}
     {subject.length === 0 && <div>ไม่มีรายวิชา</div>}
     </div>
-    
+    {openmodalsubject && <ModalUpdateSubject subject={selectsubject} closesubject={setOpenModalSubject} />}
    </main>)
 }
 

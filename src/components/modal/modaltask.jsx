@@ -9,7 +9,7 @@ import { DataSubject } from "@/app/context/useDatasubject";
 import { useRouter } from "next/navigation";
 import Swal from 'sweetalert2'
 
-const ModalTask = ({pid,bid,tid, closetask ,initialData})=>{
+const ModalTask = ({pid,bid,tid, closetask })=>{
 
     
 

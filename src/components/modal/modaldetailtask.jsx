@@ -3,8 +3,9 @@
 import React from "react";
 import Select from "react-select"
 import { useForm } from "react-hook-form";
+import { useState,useEffect } from "react"
 
-const ModalDetailTask = ({ closetask })=>{
+const ModalDetailTask = ({tid, closetask })=>{
 
     const {
         register,
@@ -12,26 +13,15 @@ const ModalDetailTask = ({ closetask })=>{
         setValue,
         reset,
         formState: { errors },
-      } = useForm()
+    } = useForm()
+    const [taskdetail, setTaskDetail] = useState([])
 
-    const Status = [
-        {value: 'todo',label: "todo"},
-        {value: 'doing',label: "doing"},
-        {value: 'done',label: "done"},
-        
-    ]
 
-    const Priority = [
-        {value: 'low',label: "low"},
-        {value: 'midium',label: "midium"},
-        {value: 'high',label: "high"},
-        
-    ]
+    useEffect(() => {
+        setTaskDetail(tid)
+      }, [tid]);
 
-    const handleSelectStatus = (e) =>{
-        setValue('Status',e.value)
-        console.log("setValue",setValue);
-    }
+  
     return(
         <>
           <div className="justify-center fixed overflow-y-auto inset-0 top-2/4 z-10 -translate-y-2/4 -translate-x-2/4 left-2/4 w-96 h-4/5 border 
@@ -39,64 +29,48 @@ const ModalDetailTask = ({ closetask })=>{
                 <form>
                     <div className="flex flex-col pd-25 px-4">
                         <div className="text-center text-2xl font-extrabold my-9">
-                            <h1>แก้ไข</h1>
+                            <h1>รายละเอียด Task</h1>
                         </div>
                         <div className="flex flex-col  ">
-                            <p className="">ชื่อ task</p>
-                            <input placeholder="ชื่อ task" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
+                            <p className="">Task ID</p>
+                            <input value={taskdetail.task_id} disabled placeholder="ชื่อ task" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
                         </div>
                         <div className="flex flex-col mt-4">
                             <p className="">คำอธิบายสำหรับ Task </p>
-                            <input placeholder="คำอธิบาย"  className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700" ></input>
+                            <input value={taskdetail.task_name} disabled placeholder="คำอธิบาย"  className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700" ></input>
                         </div>
                         <div className="flex flex-col mt-4">
                             <p className="">รหัสนิสิต</p>
-                            <input placeholder="รหัสนิสิต"  className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700" ></input>
+                            <input value={taskdetail.id_student} disabled placeholder="รหัสนิสิต"  className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700" ></input>
                         </div>
-                        <div className="" >
-                        <p className=" mb-3 mt-4">สถานะ</p>
-                        <Select className=""
-                
-                            options={Status}
-                           
-                            onChange={handleSelectStatus}
-                            ></Select>
+                        <div className="flex flex-col mt-4" >
+                            <p className="">สถานะ</p>
+                            <input value={taskdetail.status} disabled placeholder="สถานะ"  className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700" ></input>
                             
-                        </div>
-                        <div className="" >
-                            <p className=" mb-3 mt-4 ">ความสำคัญ</p>
-                            <Select className=""
-                    
-                                options={Priority}
-                            
-                                onChange={handleSelectStatus}
-                                ></Select>
-                                
                         </div>
                         
                         <div className="flex flex-col mt-4">
                             <label className=" pb-3 pt-4">วันที่คาดว่าจะทำงานเสร็จ</label>
-                            <input placeholder="วันที่"  type="date" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto " ></input>
+                            <input value={taskdetail.date_to_do} disabled placeholder="วันที่"  type="date" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto " ></input>
                     
                         </div>
                         
                         <div className="flex flex-col mt-4">
                             <label className=" pb-3 pt-4">วันที่ทำงานเสร็จ</label>
-                            <input placeholder="วันที่" type="date" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto " ></input>
+                            <input value={taskdetail.date_done} disabled placeholder="วันที่" type="date" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto " ></input>
                     
                         </div>
                         <div className="flex flex-col  mt-4 ">
                             <p className="pb-3 pt-4">เวลาที่คาดว่าจะทำงานเสร็จ</p>
-                            <input placeholder="กี่ชั่วโมง" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
+                            <input value={taskdetail.hour_todo} disabled placeholder="กี่ชั่วโมง" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
                         </div>
                         <div className="flex flex-col  mt-4 ">
                             <p className="pb-3 pt-4">เวลาที่ทำงานเสร็จ</p>
-                            <input placeholder="กี่ชั่วโมง" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
+                            <input value={taskdetail.hour_done} disabled placeholder="กี่ชั่วโมง" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
                         </div>
                         
-                        <div className="my-8 flex flex-row justify-around">
-                        <button className="h-12 w-24 border border-danger rounded-md text-danger" onClick={() => closetask(false)}>ยกเลิก</button>
-                        <button className="h-12 w-24 border bg-primary rounded-md text-white" >ตกลง</button>
+                        <div className="my-8 justify-center ml-32 ">
+                            <button className="h-12 w-24 border bg-primary rounded-md text-white" onClick={() => closetask(false)}>ปิด</button>
                         </div>
                     </div>
                 </form>

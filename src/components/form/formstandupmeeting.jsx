@@ -12,12 +12,13 @@ const FormStandupMeeting = () =>{
     const {currentUser,client} = useAuth()
     const {subject} = DataSubject()
     const [projects, setProjects] = useState([])
-    
+    const swal = require('sweetalert2')
+
     const note = [
-        {value: 'work',label: "วันนี้ทำงาน"},
-        {value: 'sick',label: "ป่วย"},
-        {value: 'busy',label: "ติดธุระ"},
-        {value: 'pass',label: "ตกลงกันว่าวันนี้ไม่ทำงาน"},
+        {value: 'วันนี้ทำงาน',label: "วันนี้ทำงาน"},
+        {value: 'ป่วย',label: "ป่วย"},
+        {value: 'ติดธุระ',label: "ติดธุระ"},
+        {value: 'ตกลงกันว่าวันนี้ไม่ทำงาน',label: "ตกลงกันว่าวันนี้ไม่ทำงาน"},
     ]
 
     
@@ -39,8 +40,16 @@ const FormStandupMeeting = () =>{
         ).then((res)=>{
             console.log(res)
             if (res.status === 201) {
-                console.log("succsses");
                 reset();
+                swal.fire({
+                    title: "บันทึก Stand up Meeting สำเร็จ!!! ",
+                    icon: "success",
+                    toast: true,
+                    timer: 2000,
+                    position: 'top-right',
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                })
             }
         })
     }

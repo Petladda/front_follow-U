@@ -13,6 +13,7 @@ export default function({params}){
     const [project, setProject] = useState([])
     const [subject, setSubject] = useState([])
     
+    
 
 
     const getProject= ()=> {
@@ -64,7 +65,7 @@ export default function({params}){
                 {project.map((e) => {
                     return (
                         <div key={e.id} {...e} className="border mb-2 rounded-lg my-2  px-5 w-full h-11 flex flex-row justify-between">
-                            <div onClick={()=> router.push(`/teacher/subject/${params.sid}/project/${e.id}/`)}   className="my-2 cursor-pointer"> id: {e.id}  ชื่อ {e.project_name}  </div>
+                            <div onClick={()=> router.push(`/teacher/subject/${params.sid}/project/${e.id}/`)}   className="my-2 cursor-pointer"> id: {e.id}  ชื่อโปรเจกต์ : {e.project_name}  </div>
                             <div className="flex flex-row justify-end ">
                                 
 

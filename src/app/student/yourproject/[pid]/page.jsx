@@ -203,4 +203,22 @@ export default function({params}){
     </main>
   )
 }
-// 
+/*if (item.status === "done" ) {
+            <div key={index} className="cursor-pointer" onClick={() => handleSelectModal(item)}>
+              <div className="w-full h-full border rounded-3xl  border-success  text-center ">
+                <p className="my-12">{index+1}</p>
+              </div>
+            </div>
+          }else if (item.status === "doing" ) {
+            <div key={index} className="cursor-pointer" onClick={() => handleSelectModal(item)}>
+              <div className="w-full h-full border rounded-3xl  border-yellow  text-center ">
+                <p className="my-12">{index+1}</p>
+              </div>
+            </div>
+          }else{
+            <div key={index} className="cursor-pointer" onClick={() => handleSelectModal(item)}>
+              <div className="w-full h-full border rounded-3xl  border-danger  text-center ">
+                <p className="my-12">{index+1}</p>
+              </div>
+            </div>
+          } */

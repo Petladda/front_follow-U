@@ -85,11 +85,10 @@ export default function({params}){
           <p className="pt-2 w-20">Figma : </p>
           <a href={projectdetail.figma_link} className="shadow px-5 w-full h-8 lg:w-11/12 underline underline-offset-2  ml-2 mt-2" >{projectdetail.figma_link}</a>
         </div>
-      
-      
-      <p className="pt-2">Stand up Meeting :
-        <a onClick={()=>router.replace('/student/standupmeeting')} className="ml-3 underline underline-offset-2">View</a> 
-      </p>
+
+        <p className="pt-2">Stand up Meeting :
+          <a onClick={()=>router.replace('/student/standupmeeting')} className="ml-3 underline underline-offset-2">View</a> 
+        </p>
       <form>
           <p className="pt-2">Product backlogs : 
           <input placeholder="จำนวน" type="number" className="shadow px-4 w-24 h-8 rounded-xl lg:w-11/12  border-gray-700 mx-4 mt-2 " ></input>
@@ -102,16 +101,16 @@ export default function({params}){
         {productbacklog_set.map((item,index)=>{
           return(
             <div key={index} >
-              {item.status === false ? ( 
+              {item.status === "done" ? ( 
                 <div  className="cursor-pointer" onClick={() => handleSelectModal(item)}>
-                  <div className="w-full h-full border rounded-3xl  border-danger text-center ">
+                  <div className="w-full h-full border rounded-3xl border-success   text-center ">
                     <p className="my-12">{index+1}</p>
                   </div>
                     
                 </div>
                 ) : (
                   <div  className="cursor-pointer" onClick={() => handleSelectModal(item)}>
-                    <div className="w-full h-full border rounded-3xl  border-success text-center ">
+                    <div className="w-full h-full border rounded-3xl border-danger text-center ">
                       <p className="my-12">{index+1}</p>
                     </div>
                   </div>
