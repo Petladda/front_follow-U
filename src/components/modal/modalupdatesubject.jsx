@@ -18,27 +18,48 @@ const ModalUpdateSubject = ({subject,closesubject})=>{
     const {subjectID} = DataSubject()
     const [subjectput,setSubjectPut] = useState("")
 
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        clearErrors,
+        reset,
+        formState: { errors },
+      } = useForm({
+        defaultValues : subject
+      })
 
     useEffect(() => {
         setSubjectPut(subject)
       }, [subject]);
 
     const putSubject = async(e)=>{
-        let {data} = await client.put(`/api/subject-update/${subject.id}/`,{
-            [e.target.name] : e.target.value
-          }
+        console.log("e =",e);
+        let {data} = await client.put(`/api/subject-update/${subject.id}/`,e
         )
         setSubjectPut({
             ...subjectput,
-            [e.target.name] : data[e.target.name]
-          })
+            
+        })
     }
+
+
+    const handleInputChange = (event) => {
+        console.log(event.target.name,event.target.value);
+        const { name, value } = event.target;
+        setValue(name, value); 
+        setSubjectPut({
+            ...subjectput,
+            [event.target.name] : event.target.value
+        })
+        
+      };
     
 
 
     return(
         <>  <div className="justify-center fixed inset-0 top-2/4 z-10 -translate-y-2/4 -translate-x-2/4 left-2/4 w-80 h-80 border rounded-xl drop-shadow-2xl bg-white">
-                <form onSubmit={putSubject} >
+                <form onSubmit={handleSubmit(putSubject)} >
                     <div className="flex flex-col px-4">
                         <div className="text-center text-2xl font-extrabold my-5">
                             <h1>แก้ไขวิชา</h1>
@@ -47,8 +68,9 @@ const ModalUpdateSubject = ({subject,closesubject})=>{
                             <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3">วิชา</label>
                             <input 
                             name="subject_name"
-                            value={subject.subject_name} 
-                            onInput={putSubject}
+                            {...register("subject_name")}
+                            value={subjectput.subject_name} 
+                            onChange={handleInputChange}
                             placeholder="โปรเจกต์ 1"  
                             className="shadow px-5 w-full h-12 rounded-xl sm:w-auto lg:w-auto " ></input>
                             

@@ -8,7 +8,7 @@ const ModalBacklog = ({sid, pid, bid, closebacklog }) => {
     const {client} = useAuth()
     const swal = require('sweetalert2')
     const id = bid.id;
-    //console.log("sid",sid);
+    //console.log("index",index);
     
     const handleDeleteBacklog = ()=>{
         client.delete(`/api/subject/${sid}/project/${pid}/productbacklog-delete/${id}`)

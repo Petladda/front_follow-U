@@ -72,7 +72,7 @@ const JoinProject = () => {
     return (
         <form className="flex flex-col border rounded-xl  px-8 pb-10 " onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4 mt-3">
-                <p className="text-3xl text-dark-grey">เข้าร่วมโปรเจกต์</p>
+                <p className="text-xl font-extrabold text-center text-dark-grey">เข้าร่วมโปรเจกต์</p>
             </div>
             <div className="flex flex-col mt-6 mb-12  ">
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3">วิชา</label>

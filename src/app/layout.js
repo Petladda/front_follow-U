@@ -19,6 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={sarabun.className} >
+      
       <AuthProvider>
         <SubjectProvider>  
           <main className="w-full md:w-2/4 h-screen  mx-auto   items-center justify-between ">

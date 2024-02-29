@@ -20,7 +20,9 @@ const ModalTask = ({pid,bid,tid, closetask })=>{
         clearErrors,
         reset,
         formState: { errors },
-      } = useForm()
+      } = useForm({
+        defaultValues : tid
+      })
     const swal = require('sweetalert2')
     const router = useRouter()
     const {currentUser,client} = useAuth()
@@ -45,16 +47,17 @@ const ModalTask = ({pid,bid,tid, closetask })=>{
         setTaskDetail(tid)
       }, [tid]);
 
+
       //console.log("task: ",taskdetail);
       //console.log("tid:",tid);
 
     const onSubmit = async (e) => {
-        e.preventDefault();
+        
         let {data} = await client.put(`/api/subject/${subjectID[0]}/project/${pid}/productbacklog/${bid}/task-update/${tid.id}`,e);
         console.log("data =", data);
         setTaskDetail({
             ...taskdetail,
-            [e.target.name] : data[e.target.name]
+            
         })
         
     }
@@ -110,13 +113,15 @@ const ModalTask = ({pid,bid,tid, closetask })=>{
                             name="id_student" 
                             value={taskdetail.id_student}
                             {...register("id_student")}
+                            onChange={handleInputChange}
                             className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700" ></input>
                         </div>
                         <div className="" >
                         <p className=" mb-3 mt-4">สถานะ</p>
                         <Select 
                             options={Status}
-                            value={taskdetail.status}
+                            placeholder='เลือกสถานะการทำงาน'
+                            value={Status.find(x => x.value == taskdetail?.status)}
                             onChange={handleSelectStatus}
                         ></Select>
                             
@@ -126,6 +131,7 @@ const ModalTask = ({pid,bid,tid, closetask })=>{
                             <label className=" pb-3 pt-4">วันที่คาดว่าจะทำงานเสร็จ</label>
                             <input placeholder="วันที่" 
                             {...register("date_to_do")}
+                            onChange={handleInputChange}
                             name="date_to_do" 
                             type="date"
                             value={taskdetail.date_to_do} 
@@ -138,6 +144,7 @@ const ModalTask = ({pid,bid,tid, closetask })=>{
                             <input placeholder="วันที่"
                             {...register("date_done")}
                             value={taskdetail.date_done}
+                            onChange={handleInputChange}
                             name="date_done" 
                             type="date" 
                             className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto " ></input>
@@ -147,6 +154,7 @@ const ModalTask = ({pid,bid,tid, closetask })=>{
                             <p className="pb-3 pt-4">เวลาที่คาดว่าจะทำงานเสร็จ / ชั่วโมง</p>
                             <input placeholder="กี่ชั่วโมง" 
                             {...register("hour_todo")}
+                            onChange={handleInputChange}
                             name="hour_todo" 
                             value={taskdetail.hour_todo}
                             className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
@@ -155,13 +163,14 @@ const ModalTask = ({pid,bid,tid, closetask })=>{
                             <p className="pb-3 pt-4">เวลาที่ทำงานเสร็จ / ชั่วโมง</p>
                             <input placeholder="กี่ชั่วโมง" 
                             {...register("hour_done")}
+                            onChange={handleInputChange}
                             name="hour_done" 
                             value={taskdetail.hour_done}
                             className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
                         </div>
                         
                         <div className="my-8 flex flex-row justify-around">
-                        <button className="h-12 w-24 border border-danger rounded-md text-danger" onClick={() => closetask(false)}>ยกเลิก</button>
+                        <button type="button" className="h-12 w-24 border border-danger rounded-md text-danger" onClick={() => closetask(false)}>ยกเลิก</button>
                         <button className="h-12 w-24 border bg-primary rounded-md text-white" >ตกลง</button>
                         </div>
                     </div>

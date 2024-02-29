@@ -28,12 +28,12 @@ const NavbarTeacher = () => {
            
             <a onClick={()=>router.replace(`/teacher/profile_teacher`)}
               className="w-full text-xl my-1 text-white cursor-pointer focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1">
-              <span className="tab tab-kategori block text-base ">{currentUser.first_name}</span>
+              <span className="tab tab-kategori block text-base ">{currentUser.username}</span>
             </a>
 
             <a onClick={()=>router.replace(`/teacher/subject`)}
               className="w-full my-1  text-white focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1">  
-              <button type="submit" className="tab tab-kategori block text-base ml-16 ">สร้างวิชา</button>
+              <button type="submit" className="tab tab-kategori block text-base ml-16 ">รายวิชาทั้งหมด</button>
             </a>
           </div>
         
@@ -41,14 +41,14 @@ const NavbarTeacher = () => {
           
             <div id="tabs" className="w-full flex  ">
             
-              <a onClick={()=>router.push(`profile`)}
+              <a onClick={()=>router.push(`/teacher/profile_teacher`)}
                 className="w-full text-xl my-1 text-white cursor-pointer focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1">
                 <span className="tab tab-kategori block text-base ">โปรไฟล์</span>
               </a>
               <a
                 href="login_users"
                 className="w-full my-1 text-white focus:text-secondary hover:text-secondary justify-center inline-block text-center pt-2 pb-1">  
-                <span className="tab tab-kategori block text-base font-extrabold ">สร้างโปรเจกต์</span>
+                <span className="tab tab-kategori block text-base font-extrabold ">รายวิชาทั้งหมด</span>
               </a>
             </div>
           

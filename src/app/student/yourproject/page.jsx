@@ -61,7 +61,7 @@ export default function(){
            {myproject.map((e) => {
                     return (
                         <div key={e.id} {...e} className="border mb-2 rounded-lg my-2 px-5 w-full h-11 flex flex-row justify-between">
-                            <div onClick={()=> router.push(`yourproject/${e.id}/`)}   className="my-2 cursor-pointer"> ID : {e.id} </div>
+                            <div onClick={()=> router.push(`yourproject/${e.id}/`)}   className="my-2 cursor-pointer"> ID : {e.id} ชื่อ : {e.project_name}</div>
                             <div className="flex flex-row justify-end ">
                                 
                                 <svg onClick={()=>removeproject(e)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 my-2">

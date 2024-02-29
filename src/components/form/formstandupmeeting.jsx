@@ -6,6 +6,7 @@ import axios from "axios";
 import { useAuth } from "@/app/context/authentication";
 import { DataSubject } from "@/app/context/useDatasubject";
 import { useState } from "react"
+import { useRouter } from "next/navigation";
 
 const FormStandupMeeting = () =>{
 
@@ -13,6 +14,7 @@ const FormStandupMeeting = () =>{
     const {subject} = DataSubject()
     const [projects, setProjects] = useState([])
     const swal = require('sweetalert2')
+    const router = useRouter()
 
     const note = [
         {value: 'วันนี้ทำงาน',label: "วันนี้ทำงาน"},
@@ -123,7 +125,7 @@ const FormStandupMeeting = () =>{
                 <p className="after:content-['*'] after:ml-0.5 after:text-red-500 mb-3 mt-4">หมายเหตุ</p>
                 
                 <Select
-        
+                    placeholder='ระบุหมายเหตุ...'
                     options={note}
                     {...register("note",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.note? "true":"false"}
                     onChange={handleSelectNote}
@@ -134,11 +136,11 @@ const FormStandupMeeting = () =>{
             </div>
             <div className="flex flex-col mb-5">
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3 pt-4">อื่น ๆ</label>
-                <input placeholder="อื่น ๆ" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto"{...register("others",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.others? "true":"false"}></input>
+                <input placeholder="อื่น ๆ" className="px-5  shadow w-auto h-28 rounded-xl sm:w-auto lg:w-auto"{...register("others",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.others? "true":"false"}></input>
                 {errors.others && <p  role="alert" className="text-red-500 ">{errors.others?.message}</p>}
             </div>
             <div className="flex flex-row justify-between ">
-                <button className="w-44 h-12 border rounded-xl border-danger hover:bg-danger hover:text-white text-danger text-center  ml-5 sm:ml-24 md:mr-9 ">ยกเลิก</button>
+                <button onClick={()=>router.replace(`/student/yourproject`)} className="w-44 h-12 border rounded-xl border-danger hover:bg-danger hover:text-white text-danger text-center  ml-5 sm:ml-24 md:mr-9 ">ยกเลิก</button>
                 <button  className="w-44 h-12 border rounded-xl ml-5 mr-5 sm:mr-24 bg-primary hover:bg-secondary text-center text-white">ตกลง</button>
             </div>
             </div>

@@ -74,6 +74,7 @@ export const AuthProvider = ({ children }) => {
     })
     
     }).catch(function(error) {
+      router.replace('/login_users')
       Swal.fire({
         icon: "error",
         text: "ข้อมูลไม่ถูกต้อง!",
@@ -153,7 +154,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={{ client,currentUser, submitlogin, submitlogout,token ,submitRegister, loadFinished }}>
       
-      {children}
+      {loadFinished ? children : <div></div>}
      
       
     </AuthContext.Provider>

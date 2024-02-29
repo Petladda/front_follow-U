@@ -32,6 +32,7 @@ export default function({params}){
   const [productbacklog_set, setProductBacklog_Set] = useState([])
   const [members , setMembers] = useState([])
   const [selectbacklog,setSelectBackLog] = useState()
+  const [selectindex, setSelectIndex] = useState()
 
   
    
@@ -78,10 +79,13 @@ export default function({params}){
 
   }
 
+  
+
   const handleSelectModal = (item)=>{
   //console.log("elememt",item);
   setModalBacklog(true)
   setSelectBackLog(item)
+  
   }
 
 
@@ -158,7 +162,7 @@ export default function({params}){
       </form>
       
       <p className="pt-2">Stand up Meeting :
-        <a onClick={()=>router.replace('/student/standupmeetingdetail')} className="ml-3 underline underline-offset-2">View</a> 
+        <a onClick={()=>router.replace(`/student/yourproject/${params.pid}/standupmeeting`)} className="ml-3 underline underline-offset-2">View</a> 
       </p>
       <form onSubmit={handleSubmit(handleCreatebacklog)}>
           <p className="pt-2">Product backlogs : 
@@ -198,27 +202,8 @@ export default function({params}){
         })}
 
         </div>
-        {openModalBacklog && <ModalBacklog sid={subjectID[0]} bid={selectbacklog} pid={params.pid}  closebacklog={setModalBacklog} />}
+        {openModalBacklog && <ModalBacklog sid={subjectID[0]}  bid={selectbacklog} pid={params.pid}  closebacklog={setModalBacklog} />}
 
     </main>
   )
 }
-/*if (item.status === "done" ) {
-            <div key={index} className="cursor-pointer" onClick={() => handleSelectModal(item)}>
-              <div className="w-full h-full border rounded-3xl  border-success  text-center ">
-                <p className="my-12">{index+1}</p>
-              </div>
-            </div>
-          }else if (item.status === "doing" ) {
-            <div key={index} className="cursor-pointer" onClick={() => handleSelectModal(item)}>
-              <div className="w-full h-full border rounded-3xl  border-yellow  text-center ">
-                <p className="my-12">{index+1}</p>
-              </div>
-            </div>
-          }else{
-            <div key={index} className="cursor-pointer" onClick={() => handleSelectModal(item)}>
-              <div className="w-full h-full border rounded-3xl  border-danger  text-center ">
-                <p className="my-12">{index+1}</p>
-              </div>
-            </div>
-          } */

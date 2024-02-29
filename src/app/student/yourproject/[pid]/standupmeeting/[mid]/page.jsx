@@ -17,7 +17,6 @@ export default function(params){
     const loadMeeting = () =>{
         client.get(`/api/stand_up_meeting/${mid}`)
         .then(r => {
-              console.log(r.data);  
                 setMeeting(r.data)
             }
         )
@@ -86,7 +85,7 @@ export default function(params){
             </div>
             <div className="flex flex-col mb-5">
                 <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3 pt-4">อื่น ๆ</label>
-                <input value={meeting.other} placeholder="อื่น ๆ" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto" ></input>
+                <input value={meeting.others} placeholder="อื่น ๆ" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto" ></input>
                
             </div>
             <div className="flex flex-row justify-between ">

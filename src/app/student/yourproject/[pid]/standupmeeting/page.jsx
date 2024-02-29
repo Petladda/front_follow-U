@@ -5,17 +5,19 @@ import { useAuth } from "@/app/context/authentication";
 import { useRouter } from "next/navigation";
 import React, { useState ,useEffect} from "react";
 
-export default function() {
+export default function({params}) {
     const [profileuser, setProfileUser] = useState(true)
     const {currentUser,client} = useAuth()
     const [meetingdetail, setMeetngDetail] = useState()
     const router = useRouter()
     const swal = require('sweetalert2')
+    console.log(params);
 
     
     const loadStandUpMeeting =()=>{
-        client.get(`/api/user/stand-up-meeting`
+        client.get(`/api/user/stand-up-meeting/${params.pid}`
         ).then((res)=>{
+          console.log("res",res)
             setMeetngDetail(res.data)
         })
         
@@ -51,7 +53,7 @@ export default function() {
             return (
                 
                 <div key={e.id} {...e} className="border mb-2 rounded-lg my-2 px-5 w-full h-11 flex flex-row justify-between">
-                <div onClick={()=> router.push(`/student/standupmeetingdetail/${e.id}`)}   className="my-2 cursor-pointer">ชื่อ : {currentUser?.first_name}  วันที่ : {e.date} </div>
+                <div onClick={()=> router.push(`/student/yourproject/${params.pid}/standupmeeting/${e.id}`)}   className="my-2 cursor-pointer">วันที่ : {e.date}  ชื่อ : {e.student.first_name} {e.student.last_name}   </div>
                 <div className="flex flex-row justify-end ">
                     
                 <svg onClick={()=>handleDeleteMeeting(e.id)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 my-2" >
