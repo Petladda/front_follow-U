@@ -30,7 +30,7 @@ export default function () {
 
   async function deleteSubject(e) {
     Swal.fire({
-      title: "คุณต้องการลบวิชานี้หรือไม่ ?",
+      text: "คุณต้องการลบวิชานี้หรือไม่ ?",
       icon: "warning",
       showCancelButton: true,
       cancelButtonColor: "#d33",
@@ -44,7 +44,7 @@ export default function () {
         Swal.fire({
           title: "ลบวิชานี้สำเร็จ!",
           icon: "success",
-        });
+        })
       }
     });
   }
@@ -59,7 +59,7 @@ export default function () {
       <div className="flex flex-row justify-between mb-5">
         <p className="font-extrabold my-3">รายวิชาทั้งหมด</p>
         <div className="">
-          <button
+          <button id="btncreatesubject"
             onClick={() => router.push(`subject/createsubject`)}
             className=" w-36 h-12 text-mid-grey rounded-3xl border block  sticky inset-x-0 bottom-0 z-10  border-mid-grey drop-shadow-lg font-extrabold"
           >

@@ -265,7 +265,10 @@ export default function (params) {
       </form>
 
       <div className="border-b-2 my-6 border-extar-light-grey "></div>
-      <p className="">Tasks</p>
+      <p className="">Tasks (
+        <span className="text-success ml-1 mr-1">Done</span>/
+        <span className="text-danger mr-1">Todo,Doing</span>)
+      </p>
 
       <form onSubmit={handleSubmit(handleCreteTask)}>
         <div className=" form-control my-2 flex flex-row">

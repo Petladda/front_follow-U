@@ -7,7 +7,7 @@ const Button = ({color="secondary",onClick,title})=>{
 
     return(
         <>
-        <button  type="submit" onClick={onClick}
+        <button id="btnsubmit" type="submit" onClick={onClick}
         className={`border rounded-xl bg-${color} h-12 text-white disabled:bg-light-grey`}>{title}</button>
 
         </>

@@ -1,13 +1,22 @@
+"use client"
 
-
-import ChooseStatus from "@/components/layouts/choosestatus";
-import NavigationMenu from "@/components/layouts/navigationmanu";
-import NavigationTop from "@/components/layouts/navigationtop";
-import LoginUsers from "@/components/register/login";
-import Image from "next/image";
+import { useState, useEffect } from "react";
+import { useAuth } from "./context/authentication";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  
+  const {currentUser} = useAuth()
+  const router = useRouter()
+
+  useEffect(()=>{
+        
+    if (currentUser === null){
+      router.replace('/login_users')
+    }else{
+      router.replace('/student/yourproject')
+    }
+
+  },[router.asPath,currentUser])
   
   return (
     <main>

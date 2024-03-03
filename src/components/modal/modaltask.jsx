@@ -171,7 +171,7 @@ const ModalTask = ({pid,bid,tid, closetask })=>{
                         
                         <div className="my-8 flex flex-row justify-around">
                         <button type="button" className="h-12 w-24 border border-danger rounded-md text-danger" onClick={() => closetask(false)}>ยกเลิก</button>
-                        <button className="h-12 w-24 border bg-primary rounded-md text-white" >ตกลง</button>
+                        <button className="h-12 w-24 border bg-primary rounded-md text-white" onClick={()=>router.replace(`/student/yourproject/${pid}/backlog/${bid}`)} >ตกลง</button>
                         </div>
                     </div>
                 </form>

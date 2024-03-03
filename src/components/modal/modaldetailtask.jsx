@@ -33,40 +33,40 @@ const ModalDetailTask = ({tid, closetask })=>{
                         </div>
                         <div className="flex flex-col  ">
                             <p className="">Task ID</p>
-                            <input value={taskdetail.task_id} disabled placeholder="ชื่อ task" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
+                            <p  disabled placeholder="ชื่อ task" className="shadow px-5 pt-4 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700 "  >{taskdetail.task_id} </p>
                         </div>
                         <div className="flex flex-col mt-4">
                             <p className="">คำอธิบายสำหรับ Task </p>
-                            <input value={taskdetail.task_name} disabled placeholder="คำอธิบาย"  className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700" ></input>
+                            <p  disabled placeholder="คำอธิบาย"  className="shadow px-5  w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700 pt-4 " >{taskdetail.task_name}</p>
                         </div>
                         <div className="flex flex-col mt-4">
                             <p className="">รหัสนิสิต</p>
-                            <input value={taskdetail.id_student} disabled placeholder="รหัสนิสิต"  className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700" ></input>
+                            <p  disabled placeholder="รหัสนิสิต"  className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700 pt-4 " >{taskdetail.id_student}</p>
                         </div>
                         <div className="flex flex-col mt-4" >
                             <p className="">สถานะ</p>
-                            <input value={taskdetail.status} disabled placeholder="สถานะ"  className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700" ></input>
+                            <p  disabled placeholder="สถานะ"  className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700 pt-4 " >{taskdetail.status}</p>
                             
                         </div>
                         
                         <div className="flex flex-col mt-4">
                             <label className=" pb-3 pt-4">วันที่คาดว่าจะทำงานเสร็จ</label>
-                            <input value={taskdetail.date_to_do} disabled placeholder="วันที่"  type="date" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto " ></input>
+                            <p  disabled placeholder="วันที่"  type="date" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto  pt-4 " >{taskdetail.date_to_do}</p>
                     
                         </div>
                         
                         <div className="flex flex-col mt-4">
                             <label className=" pb-3 pt-4">วันที่ทำงานเสร็จ</label>
-                            <input value={taskdetail.date_done} disabled placeholder="วันที่" type="date" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto " ></input>
+                            <p disabled placeholder="วันที่" type="date" className="px-5 shadow w-auto h-12 rounded-xl sm:w-auto lg:w-auto  pt-4 " >{taskdetail.date_done}</p>
                     
                         </div>
                         <div className="flex flex-col  mt-4 ">
                             <p className="pb-3 pt-4">เวลาที่คาดว่าจะทำงานเสร็จ</p>
-                            <input value={taskdetail.hour_todo} disabled placeholder="กี่ชั่วโมง" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
+                            <p  disabled placeholder="กี่ชั่วโมง" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700 pt-4 "  >{taskdetail.hour_todo}</p>
                         </div>
                         <div className="flex flex-col  mt-4 ">
                             <p className="pb-3 pt-4">เวลาที่ทำงานเสร็จ</p>
-                            <input value={taskdetail.hour_done} disabled placeholder="กี่ชั่วโมง" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700"  ></input>
+                            <p  disabled placeholder="กี่ชั่วโมง" className="shadow px-5 w-auto h-12 rounded-xl sm:w-auto lg:w-auto border-gray-700 pt-4 "  >{taskdetail.hour_done}</p>
                         </div>
                         
                         <div className="my-8 justify-center ml-32 ">

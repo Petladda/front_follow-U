@@ -24,6 +24,7 @@ const ModalBacklog = ({sid, pid, bid, closebacklog }) => {
                     timerProgressBar: true,
                     showConfirmButton: false,
                 })
+                
             }
           })
     }

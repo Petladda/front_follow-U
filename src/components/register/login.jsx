@@ -33,7 +33,7 @@ const LoginUsers= () =>{
 
             </div>
             <div className="">
-              <span>ยังไม่มีบัญชี ?</span><a onClick={()=>router.push('register_users')} className="ml-3 text-success underline underline-offset-2">ลงทะเบียน</a>  
+              <span>ยังไม่มีบัญชี ?</span><a onClick={()=>router.push('register_users')} id="register" className="ml-3 text-success underline underline-offset-2">ลงทะเบียน</a>  
             </div>
             <div className="border-b-2 my-8 border-extar-light-grey  "></div>
             

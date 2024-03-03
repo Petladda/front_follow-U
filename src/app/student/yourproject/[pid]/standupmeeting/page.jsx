@@ -5,13 +5,16 @@ import { useAuth } from "@/app/context/authentication";
 import { useRouter } from "next/navigation";
 import React, { useState ,useEffect} from "react";
 
+
 export default function({params}) {
     const [profileuser, setProfileUser] = useState(true)
     const {currentUser,client} = useAuth()
     const [meetingdetail, setMeetngDetail] = useState()
     const router = useRouter()
     const swal = require('sweetalert2')
-    console.log(params);
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    
 
     
     const loadStandUpMeeting =()=>{
@@ -44,12 +47,39 @@ export default function({params}) {
     useEffect(()=>{
         loadStandUpMeeting()
     },[currentUser,router.asPath])
+
+    const filteredMeetings = meetingdetail?.filter((meeting) => {
+      const meetingDate = new Date(meeting.date);
+      const filterStartDate = startDate ? new Date(startDate) : null;
+      const filterEndDate = endDate ? new Date(endDate) : null;
+
+      if (filterStartDate && meetingDate < filterStartDate) {
+          return false;
+      }
+
+      if (filterEndDate && meetingDate > filterEndDate) {
+          return false;
+      }
+
+      return true;
+    });
  
     return (
-      <main className="flex flex-col h-screen px-6" >
+      <main className="flex flex-col h-screen px-3" >
         
-        <p className="font-extrabold">Stand up Meeting</p>
-        {meetingdetail && meetingdetail.map((e) => {
+        <p className="font-extrabold mb-2">Stand up Meeting</p>
+        
+        <div className="ag-theme-alpine mb-2 flex flex-row justify-between " >
+          เริ่ม : <input type="date" 
+          value={startDate} 
+          onChange={e => setStartDate(e.target.value)}  className="border rounded-lg px-1 " />
+          ถึง : <input type="date" 
+          value={endDate} 
+          onChange={e => setEndDate(e.target.value)} className="border rounded-lg px-1 "/>
+          
+       
+        </div>
+        {filteredMeetings && filteredMeetings.map((e) => {
             return (
                 
                 <div key={e.id} {...e} className="border mb-2 rounded-lg my-2 px-5 w-full h-11 flex flex-row justify-between">

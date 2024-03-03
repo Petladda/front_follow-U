@@ -4,6 +4,7 @@ import NavigationMenu from "@/components/layouts/navigationmanu";
 import NavigationTop from "@/components/layouts/navigationtop";
 import { SubjectProvider } from "./context/useDatasubject";
 import { AuthProvider } from "./context/authentication";
+import { LineliffContextProvider } from "./context/linecontext";
 
 const sarabun = Sarabun({ 
   weight: ["400","600","700"],
@@ -19,8 +20,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={sarabun.className} >
-      
-      <AuthProvider>
+     
+        <AuthProvider>
         <SubjectProvider>  
           <main className="w-full md:w-2/4 h-screen  mx-auto   items-center justify-between ">
 
@@ -30,6 +31,8 @@ export default function RootLayout({ children }) {
             
         </SubjectProvider>
       </AuthProvider>
+      
+      
            
       </body>
     </html>

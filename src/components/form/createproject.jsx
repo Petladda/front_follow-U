@@ -66,14 +66,14 @@ const FromCreateGroup = (params) => {
 
 //<p className="mb-5 ">ชื่อวิชา</p>
     return (
-        <form className="flex flex-col border rounded-xl mt-12 px-8 pb-10 " onSubmit={handleSubmit(handleCreate)}>
+        <form className="flex flex-col border rounded-xl mt-20 px-8 pb-10 " onSubmit={handleSubmit(handleCreate)}>
             <div className="mb-4 mt-6">
                 <p className="text-xl font-extrabold text-center">สร้างโปรเจกต์</p>
             </div>
           
             
            
-            <div >
+            <div className="mb-20">
                 <p className=" mb-5 ">จำนวนที่ต้องการสร้างโปรเจกต์</p>
                 
                 <Select
@@ -82,7 +82,6 @@ const FromCreateGroup = (params) => {
                 ></Select>
  
             </div>
-            <div className="border-b-2 mt-14 mb-10 border-extar-light-grey "></div>
             
             <Button color="primary" title="สร้างโปรเจกต์"/>
            

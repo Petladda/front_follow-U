@@ -22,29 +22,36 @@ export default function(){
         )
     }
 
+    
+    const removeproject = (e)=>{
+        
+        Swal.fire({
+            text: "คุณต้องการออกจากโปรเจกต์นี้หรือไม่ ?",
+            icon: "warning",
+            showCancelButton: true,
+            cancelButtonColor: "#d33",
+            confirmButtonColor: "#4B8D76",
+            cancelButtonText: "ยกเลิก",
+            confirmButtonText: "ตกลง",
+          }) 
+          .then(async (result) => {
+            if (result.isConfirmed) {
+                await client.post(`/api/subject/${subjectID[0]}/project/${e.id}/remove`)
+                
+                Swal.fire({
+                    title: "ออกจากโปรเจกต์นี้สำเร็จ!!",
+                    icon: "success",
+                });
+            }
+          });
+    }
+
     useEffect(()=>{
         loadMyProject()
     },[currentUser,router.asPath])
 
-    const removeproject = (e)=>{
-        console.log(e);
-        client.post(`/api/subject/${subjectID[0]}/project/${e.id}/remove`)
-        .then((res)=>{
-            if (res.status === 201) {
-              router.replace(`/student/yourproject`)
-              swal.fire({
-                title: "ออกจากโปรเจกต์สำเร็จ!!! ",
-                icon: "success",
-                toast: true,
-                timer: 3000,
-                position: 'top-right',
-                timerProgressBar: true,
-                showConfirmButton: false,
-            })
-            }
-            
-          })
-    }
+    
+
 
     return (
 

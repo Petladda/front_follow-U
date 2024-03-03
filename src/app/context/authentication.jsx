@@ -58,9 +58,7 @@ export const AuthProvider = ({ children }) => {
       client.defaults.headers.common['Authorization'] = "Token "+ localStorage.getItem("token")
 
       await loadUserData()
-
-      
-           
+  
       router.replace('/student/yourproject')
 
       swal.fire({
@@ -74,12 +72,18 @@ export const AuthProvider = ({ children }) => {
     })
     
     }).catch(function(error) {
-      router.replace('/login_users')
-      Swal.fire({
+      router.push('/login_users')
+      swal.fire({
+        title: "ข้อมูลไม่ถูกต้อง!!! ",
         icon: "error",
-        text: "ข้อมูลไม่ถูกต้อง!",
+        toast: true,
+        timer: 3000,
+        position: 'top-right',
+        timerProgressBar: true,
+        showConfirmButton: false,
+    })
         
-      });
+      
     });
   };
 

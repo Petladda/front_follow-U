@@ -45,7 +45,7 @@ const ModalUpdateSubject = ({subject,closesubject})=>{
 
 
     const handleInputChange = (event) => {
-        console.log(event.target.name,event.target.value);
+        //console.log(event.target.name,event.target.value);
         const { name, value } = event.target;
         setValue(name, value); 
         setSubjectPut({

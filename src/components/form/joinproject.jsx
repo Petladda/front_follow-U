@@ -103,7 +103,7 @@ const JoinProject = () => {
            
             </div>
             
-            <div className="border-b-2 mt-14 mb-10 border-extar-light-grey "></div>
+            
             
             <Button color="primary" type="submit" title="เข้าร่วมโปรเจกต์"/>
            

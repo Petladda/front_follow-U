@@ -8,7 +8,7 @@ import { useEffect } from "react";
 export default function({children}){
     const {currentUser} = useAuth()
     const router = useRouter()
-    console.log(currentUser)
+    
  
     useEffect(()=>{
         

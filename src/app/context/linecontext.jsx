@@ -1,7 +1,7 @@
 "use client"
 
 
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { liff} from '@line/liff';
 
   
@@ -18,9 +18,12 @@ import { liff} from '@line/liff';
        await liff.init({liffId:'2002369405-oY8nRVXL'
         }).then(()=>{
           setLiffObject(liff)
+        }).catch((error)=>{
+          console.error('Error initializing LIFF', error);
         })
         
       }
+    console.log("liffObject",profileUser);
   
     const getProfile = async () => {
         liff.getProfile()

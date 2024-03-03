@@ -28,11 +28,7 @@ const ModalDetailBacklog = ({sid, pid, bid, closebacklog }) => {
                         >
                             ดูข้อมูล
                         </button>
-                        <button 
-                            className="h-12 w-24 border border-danger rounded-xl text-danger" 
-                        >
-                            ลบ
-                        </button>
+                        
                     </div>
                 </div>
             </div>

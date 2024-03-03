@@ -86,7 +86,7 @@ export default function(params){
       
         <div className="flex flex-col">
             <div className="text-xl font-extrabold text-center">
-                <p>Product backlog : {bid} </p>
+                <p>Product backlog : {backlogdetail.title_product}</p>
             </div>
             <div className="flex flex-col mt-4">
                 <p className=" mb-2">ชื่อ product backlog</p>
@@ -128,14 +128,18 @@ export default function(params){
    
 
       <div className="border-b-2 my-6 border-extar-light-grey "></div>
-      <p className="">Tasks</p>
+      <p className="">Tasks
+        (
+        <span className="text-success ml-1 mr-1">Done</span>/
+        <span className="text-danger mr-1">Todo,Doing</span>)
+      </p>
       
       <form   >
         <div className=" form-control my-2 flex flex-row">
           <div className="w-full pr-2">
-          <input name="taskname"   type="text" placeholder="เพิ่มtask" className="h-8 w-full border rounded-lg pl-2 text-sm"  />
+          <input name="taskname"   type="text" disabled placeholder="เพิ่ม task ID" className="h-8 w-full border rounded-lg pl-2 text-sm"  />
           </div>
-          <button type="submit" className="h-8 w-12  bg-primary rounded-lg text-white" >เพิ่ม</button>
+          <button type="submit" disabled className="h-8 w-12  bg-primary rounded-lg text-white" >เพิ่ม</button>
         </div>
       </form>
       <ul>

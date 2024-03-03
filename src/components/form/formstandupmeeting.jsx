@@ -122,10 +122,11 @@ const FormStandupMeeting = () =>{
                 {errors.problem && <p  role="alert" className="text-red-500 ">{errors.problem?.message}</p>}
             </div>
             <div className="mb-4">
-                <p className="after:content-['*'] after:ml-0.5 after:text-red-500 mb-3 mt-4">หมายเหตุ</p>
+                <p className="after:content-['*'] after:ml-0.5 after:text-red-500 mb-3 mt-4">
+                    สถานะ</p>
                 
                 <Select
-                    placeholder='ระบุหมายเหตุ...'
+                    placeholder='ระบุสถานะ...'
                     options={note}
                     {...register("note",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.note? "true":"false"}
                     onChange={handleSelectNote}
@@ -135,8 +136,8 @@ const FormStandupMeeting = () =>{
                 
             </div>
             <div className="flex flex-col mb-5">
-                <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3 pt-4">อื่น ๆ</label>
-                <input placeholder="อื่น ๆ" className="px-5  shadow w-auto h-28 rounded-xl sm:w-auto lg:w-auto"{...register("others",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.others? "true":"false"}></input>
+                <label className="after:content-['*'] after:ml-0.5 after:text-red-500 pb-3 pt-4">หมายเหตุ</label>
+                <input placeholder="หมายเหตุ" className="px-5  shadow w-auto h-28 rounded-xl sm:w-auto lg:w-auto"{...register("others",{required: "* กรุณากรอกข้อมูล"})} aria-invalid={errors.others? "true":"false"}></input>
                 {errors.others && <p  role="alert" className="text-red-500 ">{errors.others?.message}</p>}
             </div>
             <div className="flex flex-row justify-between ">
