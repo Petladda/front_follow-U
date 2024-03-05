@@ -69,7 +69,7 @@ export default function({params}) {
         
         <p className="font-extrabold mb-2">Stand up Meeting</p>
         
-        <div className="ag-theme-alpine mb-2 flex flex-row justify-between " >
+        <div className="mb-2 flex flex-row justify-between " >
           เริ่ม : <input type="date" 
           value={startDate} 
           onChange={e => setStartDate(e.target.value)}  className="border rounded-lg px-1 " />
